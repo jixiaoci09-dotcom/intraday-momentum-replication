@@ -32,6 +32,27 @@ The project focuses on CME futures minute data from Databento:
 - Public minute-level chart validation was not available for the historical
   window. Public daily/spot price checks support the downloaded data's price
   scale.
+- The GC sample manifest is stored in
+  `data/manifests/gc_v0_2024-01_ohlcv-1m_manifest.md`. The raw Databento file
+  remains local and ignored by Git.
+
+## Sample Validation Findings
+
+The January 2024 `GC.v.0` sample contains 29,474 one-minute rows. Prices are in
+the expected COMEX gold futures range, volume is positive, timestamps are UTC,
+and no duplicate event timestamps were found.
+
+The continuous symbol maps to two Databento `instrument_id` values during the
+sample:
+
+- `41512`: most of January 2024.
+- `44740`: January 31 onward.
+
+The paper window for GC is `08:20-13:30` New York time. Most dates have complete
+coverage in that window. January 30, 2024 is an important exception: it has 94
+missing minutes in the paper window and is missing the `08:20` and `13:00`
+boundary bars. This date should be excluded or flagged in research-table
+construction.
 
 ## Data Policy
 
