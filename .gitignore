@@ -1,0 +1,14 @@
+.env
+.env.*
+.venv/
+work/
+outputs/
+data/raw/
+data/interim/
+data/processed/
+*.dbn
+*.dbn.zst
+*.parquet
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
