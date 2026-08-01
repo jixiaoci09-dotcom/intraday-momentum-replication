@@ -40,7 +40,7 @@ data/
   manifests/                        # 数据下载和处理记录，不包含原始行情数据
 
 docs/
-  data_policy.md                    # 数据和密钥不能上传到 GitHub 的说明
+  data_notes.md                     # 数据使用和本地文件说明
 
 tests/
   test_trading_times.py # 检查交易时间
