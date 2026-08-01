@@ -1,122 +1,103 @@
-# Intraday Momentum Replication
+# 日内动量论文复现项目
 
-This repository contains a reproducible baseline replication and post-publication
-out-of-sample study of Baltussen, Da, Lammers, and Martens, "Hedging Demand and
-Market Intraday Momentum," using Databento CME futures minute data.
+这个项目是对 Baltussen、Da、Lammers 和 Martens 的论文
+《Hedging Demand and Market Intraday Momentum》做一个基础复现。
+论文主要研究的是：期货市场在一天内前面几个时间段的价格变化，
+能不能解释或预测最后半小时的价格变化。
 
-## Contracts
+我使用 Databento 的 CME 期货一分钟数据，对六个连续期货合约分别做了单品种复现：
 
-- ES: E-mini S&P 500
-- NQ: E-mini Nasdaq 100
-- GC: Gold
-- CL: WTI crude oil
-- ZN: 10-year U.S. Treasury note
-- 6E: Euro FX
+- ES：E-mini S&P 500
+- NQ：E-mini Nasdaq 100
+- GC：黄金期货
+- CL：WTI 原油期货
+- ZN：10 年期美国国债期货
+- 6E：欧元外汇期货
 
-## Frozen Baseline
+项目的目标不是构建一个真实交易系统，而是尽量按照论文思路，
+把数据处理、收益率计算、回归分析和结果整理完整跑通。
 
-The frozen baseline uses `pipeline_version=boundary_corrected_v1`.
+## 文件结构
 
-Boundary rules:
+```text
+intraday_momentum/
+  boundaries.py        # 六个期货品种的交易时间和取价规则
 
-- Product-specific effective sessions are used for every contract.
-- Timestamps are handled in `America/New_York`, including daylight saving time.
-- For a theoretical non-open boundary `T`, the price is the close of the
-  OHLCV-1m bar with `ts_event = T - 1 minute`.
-- Session open uses the open of the bar with `ts_event = session_open`.
-- Executable last-half-hour entry uses the next bar open after the signal is
-  formed at the close-minus-30 boundary.
-- Previous close and same-day prices must be from the same `instrument_id`.
-- Roll-mismatch days, early closes, missing exact boundaries, and missing
-  previous closes are excluded by pre-specified rules.
+scripts/
+  download_symbol_batch.py          # 下载一个品种的数据
+  build_fixed_window_daily_table.py # 把一分钟数据整理成每日研究表
+  run_symbol_core_replication.py    # 对一个品种跑回归和策略统计
+  freeze_baseline.py                # 汇总六个品种的最终结果
 
-Samples:
+reports/
+  final_baseline_summary_zh.md      # 中文结果总结
+  final_baseline_summary_en.md      # 英文结果总结
+  tables/                           # 回归、样本外和策略结果表
 
-- Strict paper-overlap sample: first valid trading day through `2020-05-01`.
-- Post-publication OOS: `2021-01-01` through `2025-12-31`.
-- `2020-05-02` through `2020-12-31` is not included in the strict paper-overlap
-  results and is not used in the frozen OOS expanding window.
+data/
+  manifests/                        # 数据下载和处理记录，不包含原始行情数据
 
-## Baseline Conclusions
+docs/
+  data_policy.md                    # 数据和密钥不能上传到 GitHub 的说明
 
-All six contracts, ES, NQ, GC, CL, ZN, and 6E, have complete single-contract
-baseline replications.
+tests/
+  test_boundary_rules.py            # 检查交易时间边界
+  test_oos_methods.py               # 检查样本外方法
+```
 
-ES, NQ, GC, and ZN replicate positive and statistically significant Eq. (7)
-relations in the strict paper-overlap sample. CL and 6E are insignificant at
-the single-contract level, which is consistent with the paper's appendix-level
-single-contract evidence; they should not be described as replication failures.
-CL and 6E are retained as null/control contracts and should not be directly
-compared with the paper's energy or currency pooled regressions.
+仓库中没有上传原始行情数据。因为 Databento 数据有授权限制，
+`data/raw/`、`data/interim/` 和 `data/processed/` 都被 `.gitignore` 排除了。
+如果要重新运行，需要自己下载数据并放在本地。
 
-In 2021-2025, only ZN continues to show a positive and significant Eq. (7)
-relation. ES, NQ, and GC show statistically significant post-publication
-attenuation. Statistical significance is not the same as tradeability after
-costs; the ZN executable strategy is highly sensitive to tick costs.
+## 研究方法
 
-## Main Outputs
+每天先根据不同品种的交易时间取几个价格点，然后计算日内不同时间段的收益率。
+主要变量包括：
 
-- Chinese frozen baseline summary:
-  `reports/final_baseline_summary_zh.md`
-- English frozen baseline summary:
-  `reports/final_baseline_summary_en.md`
-- Full boundary-corrected rerun summary:
-  `reports/core_rerun_summary_boundary_corrected_v1.md`
-- Regression long table:
-  `reports/tables/boundary_corrected_v1_regression_long.csv`
-- OOS frozen/expanding table:
-  `reports/tables/boundary_corrected_v1_oos_all.csv`
-- Period-difference tests:
-  `reports/tables/boundary_corrected_v1_beta_difference_all.csv`
-- Executable and paper-price strategy cost table:
-  `reports/tables/boundary_corrected_v1_strategy_all.csv`
-- ZN executable round-trip tick-cost table:
-  `reports/tables/zn_executable_round_trip_tick_costs.csv`
-- ZN break-even round-trip tick cost:
-  `reports/tables/zn_break_even_round_trip_tick_cost.csv`
-- Baseline file manifest:
-  `reports/baseline_file_manifest.csv`
-- Baseline validation report:
-  `reports/audit/baseline_validation_report.md`
+- `r_ONFH`：隔夜到开盘后半小时的收益率
+- `r_M`：中间时间段收益率
+- `r_SLH`：倒数第二个半小时收益率
+- `r_ROD`：从前一交易日收盘到当天最后半小时前的收益率
+- `r_LH`：最后半小时收益率
 
-## Invalidated Boundary Version
+核心回归是用前面已经发生的收益率解释最后半小时收益率。
+其中最重要的是论文中的 Eq. (7)，也就是用 `r_ROD` 解释 `r_LH`：
 
-Earlier results are preserved only as an audit trail under
-`reports/archive/invalid_boundary_v0/README.md`. The invalidated tables are
-ignored by Git and are not used in the README conclusions or final result
-tables.
+```text
+r_LH = alpha + beta * r_ROD + error
+```
 
-The invalidation reason is that Databento OHLCV-1m `ts_event` was initially
-treated as the interval end rather than the interval start. The corrected
-pipeline uses the `T - 1 minute` source bar for non-open boundary closes.
+如果 `beta` 显著为正，说明当天前面大部分时间的方向和最后半小时方向之间存在正相关，
+也就是论文所说的日内动量现象。
 
-## Market Regime Extension Protocol
+## 样本划分
 
-The next stage is pre-registered but not yet run:
+项目分成两个主要时间段：
 
-- `docs/market_regime_extension_protocol_v1.md`
+- 论文重叠期：2010 年 6 月到 2020 年 5 月 1 日
+- 样本外时期：2021 年 1 月 1 日到 2025 年 12 月 31 日
 
-The extension research question is why ZN retains intraday closing momentum in
-2021-2025 while ES, NQ, and GC attenuate. CL and 6E remain controls because they
-are not significant in the replication period.
+2020 年 5 月之后到 2020 年底没有放进主要比较里，
+这样可以让论文复现期和后面的样本外检验分开。
 
-## Data Policy
+## 主要结果
 
-Do not commit:
+在论文重叠期，ES、NQ、GC 和 ZN 的 Eq. (7) 回归结果为正且显著。
+CL 和 6E 在单品种层面不显著，因此更适合作为对照品种。
 
-- Databento API keys or `.env` files.
-- Raw Databento market data.
-- Processed market-data parquet files.
-- Large intermediate data.
-- Invalidated old result tables.
-- Account, billing, or credential files.
+在 2021-2025 年的样本外检验中，只有 ZN 仍然保持比较明显的正向关系。
+ES、NQ 和 GC 的结果变弱，CL 和 6E 仍然没有明显的正向关系。
 
-Git may contain source code, documentation, data manifests, aggregate result
-tables, audit summaries, and final reports.
+更完整的结果见：
 
-## Reproducibility
+- `reports/final_baseline_summary_zh.md`
+- `reports/tables/boundary_corrected_v1_regression_long.csv`
+- `reports/tables/boundary_corrected_v1_oos_all.csv`
+- `reports/tables/boundary_corrected_v1_strategy_all.csv`
 
-Create and activate a local virtual environment:
+## 如何运行
+
+先创建 Python 环境并安装依赖：
 
 ```bash
 python3 -m venv .venv
@@ -124,15 +105,69 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Set the Databento key only in the local shell:
+然后在本地设置 Databento API key。不要把 key 写进代码或上传到 GitHub。
 
 ```bash
 export DATABENTO_API_KEY="your_key_here"
 ```
 
-Validate the frozen baseline:
+下载某个品种的数据，例如 ES：
+
+```bash
+python scripts/download_symbol_batch.py --symbol ES.v.0 --approved-total 0
+```
+
+把一分钟数据整理成每日研究表。不同品种需要使用不同的交易时间，
+这些时间可以在 `intraday_momentum/boundaries.py` 里查看。
+
+```bash
+python scripts/build_fixed_window_daily_table.py \
+  --symbol ES.v.0 \
+  --calendar NYSE \
+  --window-start 09:30 \
+  --open-plus-30 10:00 \
+  --close-minus-60 15:00 \
+  --close-minus-30 15:30 \
+  --close 16:00
+```
+
+运行一个品种的核心复现：
+
+```bash
+python scripts/run_symbol_core_replication.py --symbol ES.v.0
+```
+
+如果六个品种都已经处理完成，可以生成最终汇总：
 
 ```bash
 python scripts/freeze_baseline.py
+```
+
+也可以运行测试：
+
+```bash
 python -m unittest tests/test_boundary_rules.py tests/test_oos_methods.py
 ```
+
+## 数据说明
+
+这个项目只上传代码、说明文档、数据清单和结果表。
+不要上传以下内容：
+
+- Databento API key
+- `.env` 文件
+- 原始行情数据
+- 处理后的 parquet 数据
+- 大型中间文件
+
+这些文件已经在 `.gitignore` 中排除。
+
+## 项目局限
+
+这个项目主要是课程学习性质的论文复现，还有很多地方可以继续改进：
+
+- 没有复现论文中所有资产类别和所有附录结果。
+- 使用的是连续期货合约，和论文原始数据可能不完全一样。
+- 样本外结果只能说明历史统计关系，不能直接说明可以真实交易获利。
+- 交易成本、滑点和实际成交问题这里只做了比较简单的讨论。
+
