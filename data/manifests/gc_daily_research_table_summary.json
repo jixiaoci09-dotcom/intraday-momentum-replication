@@ -1,0 +1,74 @@
+{
+  "rows_total": 3869,
+  "rows_included": 3651,
+  "rows_excluded": 218,
+  "calendar_trading_days": 3869,
+  "calendar_effective_close_days": 3799,
+  "included_by_segment": {
+    "oos": 1230,
+    "replication": 2421
+  },
+  "excluded_by_reason": {
+    "calendar_early_close_before_effective_close": 67,
+    "missing_boundary_on_calendar_day": 74,
+    "missing_previous_close": 2,
+    "previous_close_cross_instrument": 75
+  },
+  "excluded_by_calendar_close_clock": {
+    "13:00": 67,
+    "13:45": 5,
+    "14:30": 6,
+    "17:00": 140
+  },
+  "date_min": "2010-06-07",
+  "date_max": "2025-12-31",
+  "return_summary_included": {
+    "r_ONFH": {
+      "count": 3651,
+      "mean": 0.00022928240445729232,
+      "std": 0.007876633870294763,
+      "min": -0.05336442371752159,
+      "max": 0.0690470107307104
+    },
+    "r_M": {
+      "count": 3651,
+      "mean": -7.573388879678761e-05,
+      "std": 0.005618683275734497,
+      "min": -0.040170725583730804,
+      "max": 0.034149962880475115
+    },
+    "r_SLH": {
+      "count": 3651,
+      "mean": 5.0994667682879884e-05,
+      "std": 0.0014024885464151166,
+      "min": -0.009736953227849732,
+      "max": 0.0193944306142535
+    },
+    "r_ROD": {
+      "count": 3651,
+      "mean": 0.00020565673874262336,
+      "std": 0.009880370978908452,
+      "min": -0.08634243837441702,
+      "max": 0.05684721512519153
+    },
+    "r_LH": {
+      "count": 3651,
+      "mean": -1.8419736663000163e-05,
+      "std": 0.0014511609002464919,
+      "min": -0.010539215686274583,
+      "max": 0.007151270402153687
+    }
+  },
+  "symbol": "GC.v.0",
+  "dataset": "GLBX.MDP3",
+  "calendar": "CMEGlobex_GC",
+  "timezone": "America/New_York",
+  "effective_window": "08:20-13:30",
+  "boundary_clocks": {
+    "window_start": "08:20",
+    "open_plus_30": "08:50",
+    "close_minus_60": "12:30",
+    "close_minus_30": "13:00",
+    "close": "13:30"
+  }
+}

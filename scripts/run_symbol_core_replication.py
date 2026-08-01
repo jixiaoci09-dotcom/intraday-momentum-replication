@@ -346,7 +346,7 @@ def main() -> None:
     }
     output_paths["manifest"].write_text(
         f"# {args.symbol} Core Replication Manifest\n\n"
-        "This replication uses the frozen equity-index daily table rules and "
+        "This replication uses the frozen cleaned daily table rules for the symbol and "
         "the paper's Table 2 Eq. (5)-(7) and Table 6 Eq. (12) logic.\n\n"
         "```json\n"
         + json.dumps(manifest, indent=2)

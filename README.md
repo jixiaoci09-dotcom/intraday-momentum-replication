@@ -195,6 +195,58 @@ Current NQ-only gross results:
 - The replication-window `r_ROD` timing strategy has annualized gross return
   `3.25%` and Sharpe `0.66`; OOS gross return is `-1.62%` with Sharpe `-0.34`.
 
+## GC Data Acquisition
+
+GC was downloaded after ES and NQ to test whether the replication pipeline
+extends beyond U.S. equity-index futures. The approved Databento total was
+`$18.9420`, covering:
+
+- GC `ohlcv-1m`, 2010-06-06 to 2020-06-01.
+- GC `ohlcv-1m`, 2021-01-01 to 2026-01-01.
+- GC `definition` data for both periods.
+
+The raw files remain local under `data/raw/` and are ignored by Git. The
+download and validation manifest is stored in
+`data/manifests/gc_v_0_2010-2025_download_manifest.md`.
+
+Initial GC validation found:
+
+- 3,440,794 replication OHLCV rows and 1,746,957 OOS OHLCV rows.
+- `min_price_increment = 0.1` in definitions.
+- Using the paper's GC window, `08:20-13:30` New York time, the validation
+  check found 88 replication-window and 34 OOS-window dates with missing key
+  boundaries.
+
+## GC Core Replication
+
+The GC daily research table uses the product-specific `CMEGlobex_GC` calendar
+and the paper's gold effective window: `08:20-13:30` New York time. The
+baseline table includes 3,651 dates: 2,421 in the 2010-2020 replication window
+and 1,230 in the 2021-2025 OOS window.
+
+Current GC-only gross results:
+
+- Eq. (5), replication window: `beta_ONFH * 100 = 1.59`,
+  Newey-West `t = 2.38`, `p = 0.018`.
+- Eq. (6), replication window: `beta_ONFH * 100 = 1.57`, `beta_M * 100 = 0.73`,
+  and `beta_SLH * 100 = 7.72`; `beta_ONFH` and `beta_SLH` are significant at
+  the 5% level.
+- Eq. (7), replication window: `beta_ROD * 100 = 1.45`,
+  Newey-West `t = 2.73`, `p = 0.006`, supporting the paper's core
+  `ROD -> LH` relation for GC in the overlapping historical sample.
+- Eq. (7), OOS window: `beta_ROD * 100 = 0.32`,
+  Newey-West `t = 0.58`, `p = 0.564`. The OOS coefficient remains positive but
+  is statistically indistinguishable from zero.
+- A pooled period-interaction test for Eq. (7) estimates
+  `beta_OOS - beta_replication = -1.13` percentage points with Newey-West
+  `t = -1.45`, `p = 0.148`. Therefore, unlike ES, GC does not show a
+  statistically significant Eq. (7) coefficient decline between the two
+  periods.
+- Fixed-split OOS `R^2` values are negative for all three GC specifications:
+  Eq. (5) `-0.49%`, Eq. (6) `-1.64%`, and Eq. (7) `-0.70%`.
+- The replication-window `r_ROD` timing strategy has annualized gross return
+  `0.86%` and Sharpe `0.35`; OOS gross return is `-0.24%` with Sharpe `-0.12`.
+
 ## Data Policy
 
 Do not commit licensed Databento market data, API keys, billing information,
