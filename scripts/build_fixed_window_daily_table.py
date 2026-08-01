@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
@@ -13,8 +14,23 @@ import databento as db
 import pandas as pd
 import pandas_market_calendars as mcal
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from intraday_momentum.boundaries import (
+    NY_TZ,
+    REQUIRED_FIELDS,
+    STAT_CLOSE_FIELDS,
+    SymbolWindow,
+    boundary_plan,
+    boundary_value,
+    missing_required_sources,
+    required_source_clocks,
+    source_clock_for_field,
+)
+
 
 DATASET = "GLBX.MDP3"
+PIPELINE_VERSION = "boundary_corrected_v1"
 RAW_ROOT = Path("data/raw/databento") / DATASET / "ohlcv-1m"
 PROCESSED_ROOT = Path("data/processed")
 MANIFEST_ROOT = Path("data/manifests")
@@ -79,8 +95,9 @@ def one_value(group: pd.DataFrame, column: str, clock: str) -> Any:
     return values.iloc[-1]
 
 
-def load_rows(package: dict[str, Any], clocks: dict[str, str]) -> tuple[pd.DataFrame, pd.DataFrame]:
-    boundary_clocks = list(clocks.values())
+def load_rows(package: dict[str, Any], window: SymbolWindow) -> tuple[pd.DataFrame, pd.DataFrame]:
+    source_clocks = required_source_clocks(window, include_entry=True)
+    close_source_clock = source_clock_for_field(window, "close")
     boundary_rows = []
     volume_rows = []
     with ZipFile(package["path"]) as zip_file:
@@ -92,12 +109,12 @@ def load_rows(package: dict[str, Any], clocks: dict[str, str]) -> tuple[pd.DataF
                 continue
 
             local = df.reset_index()
-            local["ny_time"] = local["ts_event"].dt.tz_convert("America/New_York")
+            local["ny_time"] = local["ts_event"].dt.tz_convert(NY_TZ)
             local["trade_date"] = local["ny_time"].dt.date.astype(str)
             local["clock"] = local["ny_time"].dt.strftime("%H:%M")
             local["segment"] = package["segment"]
 
-            boundaries = local[local["clock"].isin(boundary_clocks)].copy()
+            boundaries = local[local["clock"].isin(source_clocks)].copy()
             if not boundaries.empty:
                 boundaries["source_zip"] = package["path"].name
                 boundaries["source_member"] = name
@@ -110,6 +127,7 @@ def load_rows(package: dict[str, Any], clocks: dict[str, str]) -> tuple[pd.DataF
                             "ts_event",
                             "ny_time",
                             "instrument_id",
+                            "open",
                             "close",
                             "volume",
                             "source_zip",
@@ -118,15 +136,18 @@ def load_rows(package: dict[str, Any], clocks: dict[str, str]) -> tuple[pd.DataF
                     ]
                 )
 
-            window = local[(local["clock"] >= clocks["window_start"]) & (local["clock"] <= clocks["close"])]
-            if not window.empty:
-                grouped = window.groupby(["segment", "trade_date"], as_index=False).agg(
+            window_rows = local[
+                (local["clock"] >= window.window_start) & (local["clock"] <= close_source_clock)
+            ]
+            if not window_rows.empty:
+                grouped = window_rows.groupby(["segment", "trade_date"], as_index=False).agg(
                     volume_effective_window=("volume", "sum"),
                     rows_effective_window=("volume", "size"),
                     instruments_effective_window=("instrument_id", lambda values: ",".join(map(str, sorted(set(values))))),
                 )
-                last_half_hour = window[
-                    (window["clock"] >= clocks["close_minus_30"]) & (window["clock"] <= clocks["close"])
+                last_half_hour = window_rows[
+                    (window_rows["clock"] >= window.close_minus_30)
+                    & (window_rows["clock"] <= close_source_clock)
                 ]
                 lh_grouped = last_half_hour.groupby(["segment", "trade_date"], as_index=False).agg(
                     volume_last_half_hour=("volume", "sum"),
@@ -162,7 +183,7 @@ def load_calendar(packages: list[dict[str, Any]], calendar_name: str, effective_
         part = schedule.copy()
         part["trade_date"] = part.index.date.astype(str)
         part["segment"] = package["segment"]
-        part["calendar_close_ny"] = part["market_close"].dt.tz_convert("America/New_York")
+        part["calendar_close_ny"] = part["market_close"].dt.tz_convert(NY_TZ)
         part["calendar_close_clock"] = part["calendar_close_ny"].dt.strftime("%H:%M")
         part["calendar_has_effective_close"] = part["calendar_close_clock"] >= effective_close
         rows.append(
@@ -185,26 +206,30 @@ def build_boundary_table(
     volumes: pd.DataFrame,
     packages: list[dict[str, Any]],
     calendar_name: str,
-    clocks: dict[str, str],
+    window: SymbolWindow,
 ) -> pd.DataFrame:
-    boundary_clocks = list(clocks.values())
-    research_clocks = [
-        clocks["open_plus_30"],
-        clocks["close_minus_60"],
-        clocks["close_minus_30"],
-        clocks["close"],
-    ]
+    source_clocks = required_source_clocks(window, include_entry=True)
+    plan = boundary_plan(window, include_entry=True)
     date_rows: list[dict[str, Any]] = []
     for (segment, trade_date), group in boundaries.groupby(["segment", "trade_date"], sort=True):
         present_clocks = set(group["clock"])
-        missing = [clock for clock in boundary_clocks if clock not in present_clocks]
-        ids_by_clock = {clock: one_value(group, "instrument_id", clock) for clock in boundary_clocks}
-        closes_by_clock = {clock: one_value(group, "close", clock) for clock in boundary_clocks}
-        ts_by_clock = {clock: one_value(group, "ts_event", clock) for clock in boundary_clocks}
-        current_research_ids = [
-            ids_by_clock[clock] for clock in research_clocks if ids_by_clock[clock] is not None
-        ]
+        missing = missing_required_sources(present_clocks, window, include_entry=True)
+        ids_by_clock = {clock: one_value(group, "instrument_id", clock) for clock in source_clocks}
+        ts_by_clock = {clock: one_value(group, "ts_event", clock) for clock in source_clocks}
+        current_research_ids = [ids_by_clock[item["source_clock"]] for item in plan if ids_by_clock[item["source_clock"]] is not None]
         current_same_instrument = len(set(current_research_ids)) == 1 if current_research_ids else False
+        values = {
+            item["field"]: boundary_value(group, item["source_clock"], item["price_column"])
+            for item in plan
+        }
+        ts_values = {
+            item["field"]: ts_by_clock[item["source_clock"]]
+            for item in plan
+        }
+        id_values = {
+            item["field"]: ids_by_clock[item["source_clock"]]
+            for item in plan
+        }
 
         date_rows.append(
             {
@@ -213,26 +238,29 @@ def build_boundary_table(
                 "has_current_boundaries": not missing,
                 "missing_boundaries": missing,
                 "current_same_instrument": current_same_instrument,
-                "instrument_window_start": ids_by_clock[clocks["window_start"]],
-                "instrument_open_plus_30": ids_by_clock[clocks["open_plus_30"]],
-                "instrument_close_minus_60": ids_by_clock[clocks["close_minus_60"]],
-                "instrument_close_minus_30": ids_by_clock[clocks["close_minus_30"]],
-                "instrument_close": ids_by_clock[clocks["close"]],
-                "p_window_start": closes_by_clock[clocks["window_start"]],
-                "p_open_plus_30": closes_by_clock[clocks["open_plus_30"]],
-                "p_close_minus_60": closes_by_clock[clocks["close_minus_60"]],
-                "p_close_minus_30": closes_by_clock[clocks["close_minus_30"]],
-                "p_close": closes_by_clock[clocks["close"]],
-                "ts_window_start": ts_by_clock[clocks["window_start"]],
-                "ts_open_plus_30": ts_by_clock[clocks["open_plus_30"]],
-                "ts_close_minus_60": ts_by_clock[clocks["close_minus_60"]],
-                "ts_close_minus_30": ts_by_clock[clocks["close_minus_30"]],
-                "ts_close": ts_by_clock[clocks["close"]],
+                "instrument_window_start": id_values["window_start"],
+                "instrument_open_plus_30": id_values["open_plus_30"],
+                "instrument_close_minus_60": id_values["close_minus_60"],
+                "instrument_close_minus_30": id_values["close_minus_30"],
+                "instrument_close": id_values["close"],
+                "instrument_lh_entry_next_open": id_values["lh_entry_next_open"],
+                "p_window_start": values["window_start"],
+                "p_open_plus_30": values["open_plus_30"],
+                "p_close_minus_60": values["close_minus_60"],
+                "p_close_minus_30": values["close_minus_30"],
+                "p_close": values["close"],
+                "p_lh_entry_next_open": values["lh_entry_next_open"],
+                "ts_window_start": ts_values["window_start"],
+                "ts_open_plus_30": ts_values["open_plus_30"],
+                "ts_close_minus_60": ts_values["close_minus_60"],
+                "ts_close_minus_30": ts_values["close_minus_30"],
+                "ts_close": ts_values["close"],
+                "ts_lh_entry_next_open": ts_values["lh_entry_next_open"],
             }
         )
 
     boundary_table = pd.DataFrame(date_rows)
-    product_calendar = load_calendar(packages, calendar_name, clocks["close"])
+    product_calendar = load_calendar(packages, calendar_name, window.close)
     boundary_table = boundary_table.merge(product_calendar, on=["segment", "trade_date"], how="outer")
     boundary_table = boundary_table.merge(volumes, on=["segment", "trade_date"], how="left")
     boundary_table = boundary_table.sort_values(["segment", "trade_date"]).reset_index(drop=True)
@@ -284,7 +312,7 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
                 elif not row.calendar_has_effective_close:
                     reason.append("calendar_early_close_before_effective_close")
                 else:
-                    reason.append("missing_boundary_on_calendar_day")
+                    reason.append("missing_exact_boundary_source_on_calendar_day")
             if row.has_current_boundaries and not row.current_same_instrument:
                 reason.append("current_boundaries_cross_instrument")
             if not has_prev_close:
@@ -293,10 +321,13 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
                 reason.append("previous_close_cross_instrument")
 
             record = {
+                "pipeline_version": PIPELINE_VERSION,
                 "trade_date": row.trade_date,
                 "segment": segment,
                 "include": include,
                 "exclude_reason": ";".join(reason),
+                "drop_reason": ";".join(reason),
+                "missing_boundary_sources": ",".join(row.missing_boundaries) if isinstance(row.missing_boundaries, list) else "",
                 "prev_trade_date": prev_trade_date,
                 "instrument_id": int(current_instrument) if current_instrument is not None else None,
                 "prev_close_instrument_id": prev_instrument,
@@ -306,12 +337,14 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
                 "p_close_minus_60": float(row.p_close_minus_60) if is_present(row.p_close_minus_60) else None,
                 "p_close_minus_30": float(row.p_close_minus_30) if is_present(row.p_close_minus_30) else None,
                 "p_close": float(row.p_close) if is_present(row.p_close) else None,
+                "p_lh_entry_next_open": float(row.p_lh_entry_next_open) if is_present(row.p_lh_entry_next_open) else None,
                 "ts_prev_close_utc": ts_prev_close,
                 "ts_window_start_utc": row.ts_window_start,
                 "ts_open_plus_30_utc": row.ts_open_plus_30,
                 "ts_close_minus_60_utc": row.ts_close_minus_60,
                 "ts_close_minus_30_utc": row.ts_close_minus_30,
                 "ts_close_utc": row.ts_close,
+                "ts_lh_entry_next_open_utc": row.ts_lh_entry_next_open,
                 "volume_effective_window": float(row.volume_effective_window) if is_present(row.volume_effective_window) else None,
                 "volume_last_half_hour": float(row.volume_last_half_hour) if is_present(row.volume_last_half_hour) else None,
                 "rows_effective_window": int(row.rows_effective_window) if is_present(row.rows_effective_window) else 0,
@@ -321,6 +354,7 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
                 "has_close_minus_60": is_present(row.p_close_minus_60),
                 "has_close_minus_30": is_present(row.p_close_minus_30),
                 "has_close": is_present(row.p_close),
+                "has_lh_entry_next_open": is_present(row.p_lh_entry_next_open),
                 "current_same_instrument": bool(row.current_same_instrument),
                 "same_instrument_as_prev": bool(same_instrument_as_prev),
                 "calendar_is_trading_day": bool(row.calendar_is_trading_day),
@@ -333,12 +367,18 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
                 record["r_SLH"] = record["p_close_minus_30"] / record["p_close_minus_60"] - 1
                 record["r_ROD"] = record["p_close_minus_30"] / record["p_prev_close"] - 1
                 record["r_LH"] = record["p_close"] / record["p_close_minus_30"] - 1
+                record["r_LH_executable"] = (
+                    record["p_close"] / record["p_lh_entry_next_open"] - 1
+                    if record["p_lh_entry_next_open"] is not None
+                    else None
+                )
             else:
                 record["r_ONFH"] = None
                 record["r_M"] = None
                 record["r_SLH"] = None
                 record["r_ROD"] = None
                 record["r_LH"] = None
+                record["r_LH_executable"] = None
             records.append(record)
 
     daily = pd.DataFrame(records).sort_values(["segment", "trade_date"])
@@ -365,7 +405,7 @@ def build_daily(boundary_table: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, A
         "return_summary_included": {},
     }
     included = daily[daily["include"]]
-    for column in ["r_ONFH", "r_M", "r_SLH", "r_ROD", "r_LH"]:
+    for column in ["r_ONFH", "r_M", "r_SLH", "r_ROD", "r_LH", "r_LH_executable"]:
         summary["return_summary_included"][column] = {
             "count": int(included[column].count()),
             "mean": float(included[column].mean()),
@@ -380,25 +420,36 @@ def main() -> None:
     args = parse_args()
     symbol = args.symbol
     prefix = symbol_prefix(symbol)
-    clocks = {
-        "window_start": args.window_start,
-        "open_plus_30": args.open_plus_30,
-        "close_minus_60": args.close_minus_60,
-        "close_minus_30": args.close_minus_30,
-        "close": args.close,
-    }
+    window = SymbolWindow(
+        symbol=symbol,
+        calendar=args.calendar,
+        window_start=args.window_start,
+        open_plus_30=args.open_plus_30,
+        close_minus_60=args.close_minus_60,
+        close_minus_30=args.close_minus_30,
+        close=args.close,
+    )
     packages = packages_for_symbol(symbol)
-    loaded = [load_rows(package, clocks) for package in packages]
+    loaded = [load_rows(package, window) for package in packages]
     boundaries = pd.concat([item[0] for item in loaded], ignore_index=True)
     volumes = pd.concat([item[1] for item in loaded], ignore_index=True)
-    boundary_table = build_boundary_table(boundaries, volumes, packages, args.calendar, clocks)
+    boundary_table = build_boundary_table(boundaries, volumes, packages, args.calendar, window)
     daily, summary = build_daily(boundary_table)
     summary["symbol"] = symbol
     summary["dataset"] = DATASET
+    summary["pipeline_version"] = PIPELINE_VERSION
     summary["calendar"] = args.calendar
-    summary["timezone"] = "America/New_York"
+    summary["timezone"] = NY_TZ
     summary["effective_window"] = f"{args.window_start}-{args.close}"
-    summary["boundary_clocks"] = clocks
+    summary["theoretical_boundary_clocks"] = {
+        field: getattr(window, field) for field in REQUIRED_FIELDS
+    }
+    summary["source_boundary_clocks"] = {
+        field: source_clock_for_field(window, field) for field in REQUIRED_FIELDS
+    }
+    summary["source_boundary_rule"] = "OHLCV-1m ts_event is interval start; non-open boundary prices use T-1 minute bar close"
+    summary["session_open_rule"] = "session open price uses ts_event == open time bar open"
+    summary["executable_lh_entry_rule"] = "entry price uses ts_event == close_minus_30 theoretical boundary bar open"
 
     out_parquet = PROCESSED_ROOT / f"{prefix}_daily_research_table.parquet"
     out_summary = MANIFEST_ROOT / f"{prefix}_daily_research_table_summary.json"

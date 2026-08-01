@@ -1,9 +1,10 @@
 # Intraday Momentum Replication
 
-This repository supports a replication and extension of Baltussen, Da,
-Lammers, and Martens, "Hedging demand and market intraday momentum."
+This repository contains a reproducible baseline replication and post-publication
+out-of-sample study of Baltussen, Da, Lammers, and Martens, "Hedging Demand and
+Market Intraday Momentum," using Databento CME futures minute data.
 
-The project focuses on CME futures minute data from Databento:
+## Contracts
 
 - ES: E-mini S&P 500
 - NQ: E-mini Nasdaq 100
@@ -12,254 +13,110 @@ The project focuses on CME futures minute data from Databento:
 - ZN: 10-year U.S. Treasury note
 - 6E: Euro FX
 
-## Research Goals
+## Frozen Baseline
 
-1. Reproduce the paper's core intraday closing momentum result using CME
-   futures minute data.
-2. Run a true post-paper out-of-sample test for 2021-2025.
-3. Separate statistical predictability from net tradability after costs.
-4. Study market states using only information known before the entry time,
-   including volatility, volume, and signal strength.
+The frozen baseline uses `pipeline_version=boundary_corrected_v1`.
 
-## Current Progress
+Boundary rules:
 
-- Databento account setup was completed outside this repository.
-- Python environment was created locally.
-- A one-month GC continuous futures sample was downloaded locally for
-  validation only.
-- The sample was checked for fields, UTC timestamps, price scale, volume,
-  missing minutes, and continuous contract instrument changes.
-- Public minute-level chart validation was not available for the historical
-  window. Public daily/spot price checks support the downloaded data's price
-  scale.
-- The GC sample manifest is stored in
-  `data/manifests/gc_v0_2024-01_ohlcv-1m_manifest.md`. The raw Databento file
-  remains local and ignored by Git.
+- Product-specific effective sessions are used for every contract.
+- Timestamps are handled in `America/New_York`, including daylight saving time.
+- For a theoretical non-open boundary `T`, the price is the close of the
+  OHLCV-1m bar with `ts_event = T - 1 minute`.
+- Session open uses the open of the bar with `ts_event = session_open`.
+- Executable last-half-hour entry uses the next bar open after the signal is
+  formed at the close-minus-30 boundary.
+- Previous close and same-day prices must be from the same `instrument_id`.
+- Roll-mismatch days, early closes, missing exact boundaries, and missing
+  previous closes are excluded by pre-specified rules.
 
-## Sample Validation Findings
+Samples:
 
-The January 2024 `GC.v.0` sample contains 29,474 one-minute rows. Prices are in
-the expected COMEX gold futures range, volume is positive, timestamps are UTC,
-and no duplicate event timestamps were found.
+- Strict paper-overlap sample: first valid trading day through `2020-05-01`.
+- Post-publication OOS: `2021-01-01` through `2025-12-31`.
+- `2020-05-02` through `2020-12-31` is not included in the strict paper-overlap
+  results and is not used in the frozen OOS expanding window.
 
-The continuous symbol maps to two Databento `instrument_id` values during the
-sample:
+## Baseline Conclusions
 
-- `41512`: most of January 2024.
-- `44740`: January 31 onward.
+All six contracts, ES, NQ, GC, CL, ZN, and 6E, have complete single-contract
+baseline replications.
 
-The paper window for GC is `08:20-13:30` New York time. Most dates have complete
-coverage in that window. January 30, 2024 is an important exception: it has 94
-missing minutes in the paper window and is missing the `08:20` and `13:00`
-boundary bars. This date should be excluded or flagged in research-table
-construction.
+ES, NQ, GC, and ZN replicate positive and statistically significant Eq. (7)
+relations in the strict paper-overlap sample. CL and 6E are insignificant at
+the single-contract level, which is consistent with the paper's appendix-level
+single-contract evidence; they should not be described as replication failures.
+CL and 6E are retained as null/control contracts and should not be directly
+compared with the paper's energy or currency pooled regressions.
 
-## ES Data Acquisition
+In 2021-2025, only ZN continues to show a positive and significant Eq. (7)
+relation. ES, NQ, and GC show statistically significant post-publication
+attenuation. Statistical significance is not the same as tradeability after
+costs; the ZN executable strategy is highly sensitive to tick costs.
 
-The project purchased ES before the remaining five symbols to validate the full
-pipeline at lower cost. The approved Databento total was `$19.1006`, covering:
+## Main Outputs
 
-- ES `ohlcv-1m`, 2010-06-06 to 2020-06-01.
-- ES `ohlcv-1m`, 2021-01-01 to 2026-01-01.
-- ES `definition` data for both periods.
+- Chinese frozen baseline summary:
+  `reports/final_baseline_summary_zh.md`
+- English frozen baseline summary:
+  `reports/final_baseline_summary_en.md`
+- Full boundary-corrected rerun summary:
+  `reports/core_rerun_summary_boundary_corrected_v1.md`
+- Regression long table:
+  `reports/tables/boundary_corrected_v1_regression_long.csv`
+- OOS frozen/expanding table:
+  `reports/tables/boundary_corrected_v1_oos_all.csv`
+- Period-difference tests:
+  `reports/tables/boundary_corrected_v1_beta_difference_all.csv`
+- Executable and paper-price strategy cost table:
+  `reports/tables/boundary_corrected_v1_strategy_all.csv`
+- ZN executable round-trip tick-cost table:
+  `reports/tables/zn_executable_round_trip_tick_costs.csv`
+- ZN break-even round-trip tick cost:
+  `reports/tables/zn_break_even_round_trip_tick_cost.csv`
+- Baseline file manifest:
+  `reports/baseline_file_manifest.csv`
+- Baseline validation report:
+  `reports/audit/baseline_validation_report.md`
 
-The raw files remain local under `data/raw/` and are ignored by Git. The
-download and validation manifest is stored in
-`data/manifests/es_v0_2010-2025_download_manifest.md`.
+## Invalidated Boundary Version
 
-Initial ES validation found:
+Earlier results are preserved only as an audit trail under
+`reports/archive/invalid_boundary_v0/README.md`. The invalidated tables are
+ignored by Git and are not used in the README conclusions or final result
+tables.
 
-- 3,463,223 replication OHLCV rows and 1,767,973 OOS OHLCV rows.
-- Zero duplicate timestamps and no missing/zero prices.
-- `min_price_increment = 0.25` in definitions.
-- 74 replication-window and 44 OOS-window dates missing key `09:30-16:00`
-  boundaries, primarily holidays and early closes that must be excluded or
-  flagged.
+The invalidation reason is that Databento OHLCV-1m `ts_event` was initially
+treated as the interval end rather than the interval start. The corrected
+pipeline uses the `T - 1 minute` source bar for non-open boundary closes.
 
-## ES Daily Research Table
+## Market Regime Extension Protocol
 
-The baseline ES daily table rules are frozen in
-`docs/es_daily_table_rules.md`. The generated local table is stored at
-`data/processed/es_daily_research_table.parquet` and is ignored by Git because
-it is derived from licensed data.
+The next stage is pre-registered but not yet run:
 
-The Git-tracked manifest is
-`data/manifests/es_daily_research_table_manifest.md`. The initial build created
-3,853 candidate dates and included 3,667 dates after excluding NYSE closed
-days, early closes, missing-boundary observations, and cross-instrument
-observations.
+- `docs/market_regime_extension_protocol_v1.md`
 
-## ES Core Replication
-
-The ES core replication now follows the paper's Table 2 Eq. (5), Eq. (6), and
-Eq. (7), plus the timing strategies based on Eq. (12):
-
-```text
-Eq. (5): r_LH,t = alpha + beta_ONFH * r_ONFH,t + epsilon_t
-Eq. (6): r_LH,t = alpha + beta_ONFH * r_ONFH,t
-                  + beta_M * r_M,t + beta_SLH * r_SLH,t + epsilon_t
-Eq. (7): r_LH,t = alpha + beta_ROD * r_ROD,t + epsilon_t
-Eq. (12): eta(r) = r_LH if r > 0, otherwise -r_LH
-```
-
-Outputs are stored in `reports/tables/`.
-
-Current ES-only gross results:
-
-- Eq. (5), replication window: `beta_ONFH * 100 = 4.63`,
-  Newey-West `t = 1.67`, `p = 0.096`. The sign is positive, but the
-  statistical evidence is weak and does not meet the common 5% threshold.
-- Eq. (6), replication window: `beta_ONFH * 100 = 4.31`, `beta_M * 100 = 2.69`,
-  and `beta_SLH * 100 = 13.98`; their Newey-West p-values are `0.090`,
-  `0.245`, and `0.093`, respectively.
-- Eq. (7), replication window: `beta_ROD * 100 = 4.22`,
-  Newey-West `t = 2.32`, `p = 0.020`, supporting the paper's core
-  `ROD -> LH` intraday closing momentum relation for ES in the overlapping
-  historical sample.
-- Eq. (7), OOS window: `beta_ROD * 100 = -0.58`,
-  Newey-West `t = -0.54`, `p = 0.591`. This does not establish a significant
-  reversal; it fails to reject a zero OOS predictive coefficient.
-- A pooled period-interaction test for Eq. (7) estimates
-  `beta_OOS - beta_replication = -4.80` percentage points with Newey-West
-  `t = -2.28`, `p = 0.023`. For ES alone, this supports describing the
-  post-2020 result as a statistically detectable attenuation of the historical
-  `ROD` coefficient.
-- Fixed-split OOS `R^2` values are negative for all three ES specifications:
-  Eq. (5) `-3.47%`, Eq. (6) `-2.78%`, and Eq. (7) `-3.79%`. The predictive
-  models trained on 2010-2020 do not beat the replication-sample mean
-  benchmark for 2021-2025.
-- The replication-window `r_ROD` timing strategy has annualized gross return
-  `3.71%` and Sharpe `0.82`; OOS gross return is `0.23%` with Sharpe `0.06`.
-- The `r_ONFH` timing strategy is weak for ES alone: replication Sharpe `0.10`
-  and OOS Sharpe `-0.87`.
-
-These are gross, single-symbol ES results before transaction costs and before
-buying the remaining target futures.
-
-ES-stage conclusion: We replicate a positive and statistically significant
-relation between rest-of-day and last-half-hour returns in ES futures during
-2010-2020. However, the coefficient declines significantly in 2021-2025, while
-the model produces a negative out-of-sample R^2, indicating no improvement over
-the historical-mean forecast.
-
-## NQ Data Acquisition
-
-NQ was downloaded after ES to test whether the ES result extends to the other
-U.S. equity index future before buying the remaining non-equity contracts. The
-approved Databento total was `$18.4628`, covering:
-
-- NQ `ohlcv-1m`, 2010-06-06 to 2020-06-01.
-- NQ `ohlcv-1m`, 2021-01-01 to 2026-01-01.
-- NQ `definition` data for both periods.
-
-The raw files remain local under `data/raw/` and are ignored by Git. The
-download and validation manifest is stored in
-`data/manifests/nq_v_0_2010-2025_download_manifest.md`.
-
-Initial NQ validation found:
-
-- 3,288,145 replication OHLCV rows and 1,768,326 OOS OHLCV rows.
-- `min_price_increment = 0.25` in definitions.
-- 74 replication-window and 44 OOS-window dates missing key `09:30-16:00`
-  boundaries, matching the expected holiday and early-close pattern seen in ES.
-
-## NQ Core Replication
-
-The NQ daily research table uses the same U.S. equity-index effective window as
-ES: `09:30-16:00` New York time. The baseline table includes 3,667 dates:
-2,443 in the 2010-2020 replication window and 1,224 in the 2021-2025 OOS
-window.
-
-Current NQ-only gross results:
-
-- Eq. (5), replication window: `beta_ONFH * 100 = 3.94`,
-  Newey-West `t = 1.42`, `p = 0.155`.
-- Eq. (6), replication window: `beta_ONFH * 100 = 3.74`, `beta_M * 100 = 1.36`,
-  and `beta_SLH * 100 = 13.11`; only `beta_SLH` is close to conventional
-  significance with `p = 0.075`.
-- Eq. (7), replication window: `beta_ROD * 100 = 3.19`,
-  Newey-West `t = 1.93`, `p = 0.053`. The sign is consistent with the paper,
-  but the evidence is slightly weaker than the common 5% threshold.
-- Eq. (7), OOS window: `beta_ROD * 100 = -0.11`,
-  Newey-West `t = -0.12`, `p = 0.901`. There is no stable positive OOS
-  predictive relation.
-- A pooled period-interaction test for Eq. (7) estimates
-  `beta_OOS - beta_replication = -3.30` percentage points with Newey-West
-  `t = -1.76`, `p = 0.078`. This is not significant at the common 5% level;
-  it is only suggestive at roughly the 10% level. Therefore, NQ should be
-  described as showing no stable OOS predictive relation and only weak
-  evidence of coefficient attenuation, unlike the stronger ES period-difference
-  evidence.
-- Fixed-split OOS `R^2` values are negative for all three NQ specifications:
-  Eq. (5) `-2.92%`, Eq. (6) `-1.88%`, and Eq. (7) `-2.40%`.
-- The replication-window `r_ROD` timing strategy has annualized gross return
-  `3.25%` and Sharpe `0.66`; OOS gross return is `-1.62%` with Sharpe `-0.34`.
-
-## GC Data Acquisition
-
-GC was downloaded after ES and NQ to test whether the replication pipeline
-extends beyond U.S. equity-index futures. The approved Databento total was
-`$18.9420`, covering:
-
-- GC `ohlcv-1m`, 2010-06-06 to 2020-06-01.
-- GC `ohlcv-1m`, 2021-01-01 to 2026-01-01.
-- GC `definition` data for both periods.
-
-The raw files remain local under `data/raw/` and are ignored by Git. The
-download and validation manifest is stored in
-`data/manifests/gc_v_0_2010-2025_download_manifest.md`.
-
-Initial GC validation found:
-
-- 3,440,794 replication OHLCV rows and 1,746,957 OOS OHLCV rows.
-- `min_price_increment = 0.1` in definitions.
-- Using the paper's GC window, `08:20-13:30` New York time, the validation
-  check found 88 replication-window and 34 OOS-window dates with missing key
-  boundaries.
-
-## GC Core Replication
-
-The GC daily research table uses the product-specific `CMEGlobex_GC` calendar
-and the paper's gold effective window: `08:20-13:30` New York time. The
-baseline table includes 3,651 dates: 2,421 in the 2010-2020 replication window
-and 1,230 in the 2021-2025 OOS window.
-
-Current GC-only gross results:
-
-- Eq. (5), replication window: `beta_ONFH * 100 = 1.59`,
-  Newey-West `t = 2.38`, `p = 0.018`.
-- Eq. (6), replication window: `beta_ONFH * 100 = 1.57`, `beta_M * 100 = 0.73`,
-  and `beta_SLH * 100 = 7.72`; `beta_ONFH` and `beta_SLH` are significant at
-  the 5% level.
-- Eq. (7), replication window: `beta_ROD * 100 = 1.45`,
-  Newey-West `t = 2.73`, `p = 0.006`, supporting the paper's core
-  `ROD -> LH` relation for GC in the overlapping historical sample.
-- Eq. (7), OOS window: `beta_ROD * 100 = 0.32`,
-  Newey-West `t = 0.58`, `p = 0.564`. The OOS coefficient remains positive but
-  is statistically indistinguishable from zero.
-- A pooled period-interaction test for Eq. (7) estimates
-  `beta_OOS - beta_replication = -1.13` percentage points with Newey-West
-  `t = -1.45`, `p = 0.148`. Therefore, unlike ES, GC does not show a
-  statistically significant Eq. (7) coefficient decline between the two
-  periods.
-- Fixed-split OOS `R^2` values are negative for all three GC specifications:
-  Eq. (5) `-0.49%`, Eq. (6) `-1.64%`, and Eq. (7) `-0.70%`.
-- The replication-window `r_ROD` timing strategy has annualized gross return
-  `0.86%` and Sharpe `0.35`; OOS gross return is `-0.24%` with Sharpe `-0.12`.
+The extension research question is why ZN retains intraday closing momentum in
+2021-2025 while ES, NQ, and GC attenuate. CL and 6E remain controls because they
+are not significant in the replication period.
 
 ## Data Policy
 
-Do not commit licensed Databento market data, API keys, billing information,
-or local environment files. Raw and processed market data belong only in
-ignored local directories such as `data/raw/`, `data/interim/`, and
-`data/processed/`.
+Do not commit:
 
-GitHub may contain source code, documentation, data manifests, file hashes,
-aggregate result tables, figures, and final reports.
+- Databento API keys or `.env` files.
+- Raw Databento market data.
+- Processed market-data parquet files.
+- Large intermediate data.
+- Invalidated old result tables.
+- Account, billing, or credential files.
+
+Git may contain source code, documentation, data manifests, aggregate result
+tables, audit summaries, and final reports.
 
 ## Reproducibility
 
-Install dependencies in a virtual environment:
+Create and activate a local virtual environment:
 
 ```bash
 python3 -m venv .venv
@@ -267,59 +124,15 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-Set the Databento API key locally, never in the repository:
+Set the Databento key only in the local shell:
 
 ```bash
 export DATABENTO_API_KEY="your_key_here"
 ```
 
-Check the cost of a historical request before downloading:
+Validate the frozen baseline:
 
 ```bash
-python scripts/check_databento_cost.py \
-  --dataset GLBX.MDP3 \
-  --symbol GC.v.0 \
-  --schema ohlcv-1m \
-  --start 2024-01-01 \
-  --end 2024-02-01
+python scripts/freeze_baseline.py
+python -m unittest tests/test_boundary_rules.py tests/test_oos_methods.py
 ```
-
-Check the full replication plus OOS cost for one continuous futures symbol:
-
-```bash
-python scripts/check_symbol_full_cost.py --symbol NQ.v.0
-```
-
-Download an approved full symbol batch:
-
-```bash
-python scripts/download_symbol_batch.py --symbol NQ.v.0 --approved-total 18.4628
-```
-
-Validate a downloaded full symbol batch:
-
-```bash
-python scripts/validate_symbol_downloads.py --symbol NQ.v.0
-```
-
-Download the approved GC sample:
-
-```bash
-python scripts/download_sample_gc.py
-```
-
-Validate the local GC sample:
-
-```bash
-python scripts/validate_sample_gc.py
-```
-
-## Planned Version Tags
-
-- `v0.1-scaffold`: project scaffold, README, environment, and Git rules.
-- `v0.2-sample-validated`: GC one-month sample download and validation code.
-- `v0.3-data-pipeline`: full data download, cleaning, calendars, and roll logic.
-- `v0.4-core-replication`: 2010-May 2020 core replication.
-- `v0.5-out-of-sample`: 2021-2025 out-of-sample test.
-- `v0.6-execution-costs`: fixed-cost and necessary BBO cost analysis.
-- `v1.0`: market-state extension, final report, figures, and README.

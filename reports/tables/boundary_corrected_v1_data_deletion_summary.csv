@@ -1,0 +1,7 @@
+symbol,rows_total,rows_included,rows_excluded,replication_included,oos_included,excluded_by_reason
+ES.v.0,3853,3667,186,2443,1224,missing_exact_boundary_source_on_regular_day=7; missing_previous_close=2; nyse_closed=85; nyse_early_close=32; previous_close_cross_instrument=60
+NQ.v.0,3853,3667,186,2443,1224,missing_exact_boundary_source_on_regular_day=7; missing_previous_close=2; nyse_closed=85; nyse_early_close=32; previous_close_cross_instrument=60
+GC.v.0,3869,3640,229,2414,1226,calendar_early_close_before_effective_close=67; missing_exact_boundary_source_on_calendar_day=85; missing_previous_close=2; previous_close_cross_instrument=75
+CL.v.0,3869,3576,293,2363,1213,calendar_early_close_before_effective_close=79; missing_exact_boundary_source_on_calendar_day=32; missing_previous_close=2; previous_close_cross_instrument=180
+ZN.v.0,3869,3618,251,2397,1221,calendar_early_close_before_effective_close=117; missing_exact_boundary_source_on_calendar_day=73; missing_previous_close=2; previous_close_cross_instrument=59
+6E.v.0,3872,3645,227,2417,1228,calendar_closed=2; calendar_early_close_before_effective_close=92; missing_exact_boundary_source_on_calendar_day=73; missing_previous_close=2; previous_close_cross_instrument=58

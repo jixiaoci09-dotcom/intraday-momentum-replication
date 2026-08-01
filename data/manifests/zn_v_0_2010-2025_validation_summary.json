@@ -1,0 +1,1061 @@
+{
+  "symbol": "ZN.v.0",
+  "dataset": "GLBX.MDP3",
+  "source": "Databento",
+  "note": "Aggregate validation only; raw licensed data remains in data/raw/ and is ignored by Git.",
+  "packages": [
+    {
+      "label": "replication definitions",
+      "schema": "definition",
+      "period": "2010-06-06 to 2020-06-01",
+      "approved_cost_usd": 0.00178457424,
+      "job_id": "GLBX-20260801-MR34LHVXMV",
+      "path": "data/raw/databento/GLBX.MDP3/definition/ZN.v.0/replication_2010-06-06_2020-06-01/GLBX-20260801-MR34LHVXMV/GLBX-20260801-MR34LHVXMV.zip",
+      "size_bytes": 1151372,
+      "size_mb": 1.1,
+      "sha256": "e780a74d2d9dc4b11835c20bfc26575fc47d2b617079767ba74e0027a9cb25e6",
+      "zip_file_count": 123,
+      "dbn_zst_count": 120,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20100606-20100630.definition.dbn.zst",
+      "last_dbn": "glbx-mdp3-20200501-20200531.definition.dbn.zst",
+      "validation": {
+        "rows": 3131,
+        "utc_start": "2010-06-06 00:00:00+00:00",
+        "utc_end": "2020-05-31 16:10:31.180000417+00:00",
+        "instrument_count": 41,
+        "raw_symbol_count": 40,
+        "raw_symbols_sample": [
+          "ZNH0",
+          "ZNH1",
+          "ZNH2",
+          "ZNH3",
+          "ZNH4",
+          "ZNH5",
+          "ZNH6",
+          "ZNH7",
+          "ZNH8",
+          "ZNH9",
+          "ZNM0",
+          "ZNM1",
+          "ZNM2",
+          "ZNM3",
+          "ZNM4",
+          "ZNM5",
+          "ZNM6",
+          "ZNM7",
+          "ZNM8",
+          "ZNM9",
+          "ZNU0",
+          "ZNU1",
+          "ZNU2",
+          "ZNU3",
+          "ZNU4",
+          "ZNU5",
+          "ZNU6",
+          "ZNU7",
+          "ZNU8",
+          "ZNU9",
+          "ZNZ0",
+          "ZNZ1",
+          "ZNZ2",
+          "ZNZ3",
+          "ZNZ4",
+          "ZNZ5",
+          "ZNZ6",
+          "ZNZ7",
+          "ZNZ8",
+          "ZNZ9"
+        ],
+        "expiration_count": 41,
+        "expiration_sample": [
+          "2010-09-21 17:01:00+00:00",
+          "2010-12-21 18:01:00+00:00",
+          "2011-03-22 17:01:00+00:00",
+          "2011-06-21 17:01:00+00:00",
+          "2011-09-21 17:01:00+00:00",
+          "2011-12-20 18:01:00+00:00",
+          "2012-03-21 17:01:00+00:00",
+          "2012-06-20 17:01:00+00:00",
+          "2012-09-19 17:01:00+00:00",
+          "2012-12-19 18:01:00+00:00",
+          "2013-03-19 17:01:00+00:00",
+          "2013-06-19 17:01:00+00:00",
+          "2013-09-19 17:01:00+00:00",
+          "2013-12-19 18:01:00+00:00",
+          "2014-03-20 17:01:00+00:00",
+          "2014-06-19 17:01:00+00:00",
+          "2014-09-19 17:01:00+00:00",
+          "2014-12-19 18:01:00+00:00",
+          "2015-03-20 17:01:00+00:00",
+          "2015-06-19 17:01:00+00:00"
+        ],
+        "min_price_increment_values": [
+          "0.015625"
+        ]
+      }
+    },
+    {
+      "label": "OOS definitions",
+      "schema": "definition",
+      "period": "2021-01-01 to 2026-01-01",
+      "approved_cost_usd": 0.000894851983,
+      "job_id": "GLBX-20260801-VX8964AD7K",
+      "path": "data/raw/databento/GLBX.MDP3/definition/ZN.v.0/oos_2021-01-01_2026-01-01/GLBX-20260801-VX8964AD7K/GLBX-20260801-VX8964AD7K.zip",
+      "size_bytes": 579828,
+      "size_mb": 0.55,
+      "sha256": "ea1f4da1f91e0d1da14404a2777b61006f4f378cae817710320219e73339d196",
+      "zip_file_count": 63,
+      "dbn_zst_count": 60,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20210101-20210131.definition.dbn.zst",
+      "last_dbn": "glbx-mdp3-20251201-20251231.definition.dbn.zst",
+      "validation": {
+        "rows": 1570,
+        "utc_start": "2020-12-27 17:05:58.242000+00:00",
+        "utc_end": "2025-12-28 12:52:20.673000+00:00",
+        "instrument_count": 21,
+        "raw_symbol_count": 21,
+        "raw_symbols_sample": [
+          "ZNH1",
+          "ZNH2",
+          "ZNH3",
+          "ZNH4",
+          "ZNH5",
+          "ZNH6",
+          "ZNM1",
+          "ZNM2",
+          "ZNM3",
+          "ZNM4",
+          "ZNM5",
+          "ZNU1",
+          "ZNU2",
+          "ZNU3",
+          "ZNU4",
+          "ZNU5",
+          "ZNZ1",
+          "ZNZ2",
+          "ZNZ3",
+          "ZNZ4",
+          "ZNZ5"
+        ],
+        "expiration_count": 21,
+        "expiration_sample": [
+          "2021-03-22 17:01:00+00:00",
+          "2021-06-21 17:01:00+00:00",
+          "2021-09-21 17:01:00+00:00",
+          "2021-12-21 18:01:00+00:00",
+          "2022-03-22 17:01:00+00:00",
+          "2022-06-21 17:01:00+00:00",
+          "2022-09-21 17:01:00+00:00",
+          "2022-12-20 18:01:00+00:00",
+          "2023-03-22 17:01:00+00:00",
+          "2023-06-21 17:01:00+00:00",
+          "2023-09-20 17:01:00+00:00",
+          "2023-12-19 18:01:00+00:00",
+          "2024-03-19 17:01:00+00:00",
+          "2024-06-18 17:01:00+00:00",
+          "2024-09-19 17:01:00+00:00",
+          "2024-12-19 18:01:00+00:00",
+          "2025-03-20 17:01:00+00:00",
+          "2025-06-18 17:01:00+00:00",
+          "2025-09-19 17:01:00+00:00",
+          "2025-12-19 18:01:00+00:00"
+        ],
+        "min_price_increment_values": [
+          "0.015625"
+        ]
+      }
+    },
+    {
+      "label": "replication OHLCV",
+      "schema": "ohlcv-1m",
+      "period": "2010-06-06 to 2020-06-01",
+      "approved_cost_usd": 11.408643126488,
+      "job_id": "GLBX-20260801-PS9MUDGLVY",
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/ZN.v.0/replication_2010-06-06_2020-06-01/GLBX-20260801-PS9MUDGLVY/GLBX-20260801-PS9MUDGLVY.zip",
+      "size_bytes": 34404980,
+      "size_mb": 32.81,
+      "sha256": "78b78ab21d8274917585d1ff6c631d0a67dd323295dd08ce0786a49b0f2516c3",
+      "zip_file_count": 123,
+      "dbn_zst_count": 120,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20100606-20100630.ohlcv-1m.dbn.zst",
+      "last_dbn": "glbx-mdp3-20200501-20200531.ohlcv-1m.dbn.zst",
+      "validation": {
+        "rows": 3124984,
+        "utc_start": "2010-06-07 00:00:00+00:00",
+        "utc_end": "2020-05-31 23:59:00+00:00",
+        "duplicate_timestamps": 0,
+        "instrument_counts": {
+          "42281": 75663,
+          "44395": 77053,
+          "59121": 81740,
+          "72174": 81512,
+          "83568": 76122,
+          "98159": 75334,
+          "105872": 82966,
+          "116177": 78244,
+          "120107": 80253,
+          "126136": 80539,
+          "133520": 81439,
+          "184597": 76375,
+          "208387": 77653,
+          "241710": 75253,
+          "326771": 83395,
+          "328264": 79633,
+          "353160": 79552,
+          "354456": 75387,
+          "357060": 78969,
+          "381207": 71010,
+          "400198": 78382,
+          "421732": 107,
+          "480218": 79785,
+          "525443": 76541,
+          "578198": 81372,
+          "585392": 78868,
+          "596431": 83140,
+          "615592": 80185,
+          "617542": 74059,
+          "619999": 75576,
+          "720496": 76364,
+          "732065": 81834,
+          "745944": 73428,
+          "752340": 76877,
+          "771691": 80625,
+          "771901": 79960,
+          "780401": 75990,
+          "793429": 80142,
+          "799743": 77779,
+          "816003": 75123,
+          "896125": 70755
+        },
+        "mapping_interval_count": 154,
+        "mapping_intervals_sample": [
+          {
+            "start_date": "2010-06-06",
+            "end_date": "2010-07-01",
+            "instrument_id": "816003"
+          },
+          {
+            "start_date": "2010-07-01",
+            "end_date": "2010-08-01",
+            "instrument_id": "816003"
+          },
+          {
+            "start_date": "2010-08-01",
+            "end_date": "2010-09-01",
+            "instrument_id": "816003"
+          },
+          {
+            "start_date": "2010-09-01",
+            "end_date": "2010-09-02",
+            "instrument_id": "816003"
+          },
+          {
+            "start_date": "2010-09-02",
+            "end_date": "2010-10-01",
+            "instrument_id": "44395"
+          },
+          {
+            "start_date": "2010-10-01",
+            "end_date": "2010-11-01",
+            "instrument_id": "44395"
+          },
+          {
+            "start_date": "2010-11-01",
+            "end_date": "2010-12-01",
+            "instrument_id": "44395"
+          },
+          {
+            "start_date": "2010-12-01",
+            "end_date": "2010-12-02",
+            "instrument_id": "44395"
+          },
+          {
+            "start_date": "2010-12-02",
+            "end_date": "2011-01-01",
+            "instrument_id": "83568"
+          },
+          {
+            "start_date": "2011-01-01",
+            "end_date": "2011-02-01",
+            "instrument_id": "83568"
+          },
+          {
+            "start_date": "2011-02-01",
+            "end_date": "2011-03-01",
+            "instrument_id": "83568"
+          },
+          {
+            "start_date": "2011-03-01",
+            "end_date": "2011-03-02",
+            "instrument_id": "83568"
+          },
+          {
+            "start_date": "2011-03-02",
+            "end_date": "2011-04-01",
+            "instrument_id": "116177"
+          },
+          {
+            "start_date": "2011-04-01",
+            "end_date": "2011-05-01",
+            "instrument_id": "116177"
+          },
+          {
+            "start_date": "2011-05-01",
+            "end_date": "2011-06-01",
+            "instrument_id": "116177"
+          },
+          {
+            "start_date": "2011-06-01",
+            "end_date": "2011-06-02",
+            "instrument_id": "116177"
+          },
+          {
+            "start_date": "2011-06-02",
+            "end_date": "2011-07-01",
+            "instrument_id": "133520"
+          },
+          {
+            "start_date": "2011-07-01",
+            "end_date": "2011-08-01",
+            "instrument_id": "133520"
+          },
+          {
+            "start_date": "2011-08-01",
+            "end_date": "2011-09-01",
+            "instrument_id": "133520"
+          },
+          {
+            "start_date": "2011-09-01",
+            "end_date": "2011-09-02",
+            "instrument_id": "133520"
+          },
+          {
+            "start_date": "2011-09-02",
+            "end_date": "2011-10-01",
+            "instrument_id": "578198"
+          },
+          {
+            "start_date": "2011-10-01",
+            "end_date": "2011-11-01",
+            "instrument_id": "578198"
+          },
+          {
+            "start_date": "2011-11-01",
+            "end_date": "2011-12-01",
+            "instrument_id": "578198"
+          },
+          {
+            "start_date": "2011-12-01",
+            "end_date": "2011-12-02",
+            "instrument_id": "578198"
+          },
+          {
+            "start_date": "2011-12-02",
+            "end_date": "2012-01-01",
+            "instrument_id": "745944"
+          },
+          {
+            "start_date": "2012-01-01",
+            "end_date": "2012-02-01",
+            "instrument_id": "745944"
+          },
+          {
+            "start_date": "2012-02-01",
+            "end_date": "2012-03-01",
+            "instrument_id": "745944"
+          },
+          {
+            "start_date": "2012-03-01",
+            "end_date": "2012-03-02",
+            "instrument_id": "745944"
+          },
+          {
+            "start_date": "2012-03-02",
+            "end_date": "2012-04-01",
+            "instrument_id": "328264"
+          },
+          {
+            "start_date": "2012-04-01",
+            "end_date": "2012-05-01",
+            "instrument_id": "328264"
+          }
+        ],
+        "price_stats": {
+          "open": {
+            "min": 117.421875,
+            "max": 140.71875,
+            "zeros": 0,
+            "missing": 0
+          },
+          "high": {
+            "min": 117.4375,
+            "max": 140.75,
+            "zeros": 0,
+            "missing": 0
+          },
+          "low": {
+            "min": 117.421875,
+            "max": 140.625,
+            "zeros": 0,
+            "missing": 0
+          },
+          "close": {
+            "min": 117.421875,
+            "max": 140.71875,
+            "zeros": 0,
+            "missing": 0
+          }
+        },
+        "volume_stats": {
+          "min": 1,
+          "max": 153336,
+          "zeros": 0,
+          "missing": 0
+        },
+        "paper_window": {
+          "timezone": "America/New_York",
+          "window": "08:20-15:00",
+          "required_boundaries": [
+            "08:20",
+            "08:50",
+            "14:00",
+            "14:30",
+            "15:00"
+          ],
+          "days_checked": 2566,
+          "days_missing_any_boundary": 105,
+          "days_missing_any_minute": 1029,
+          "max_missing_minutes": 335,
+          "example_problem_days": [
+            {
+              "ny_date": "2010-06-18",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-06-22",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-06-24",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-05",
+              "rows_in_window": 245,
+              "missing_minutes": 156,
+              "missing_boundaries": [
+                "14:00",
+                "14:30",
+                "15:00"
+              ],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-06",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-12",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-19",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-21",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-23",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-07-30",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-03",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-05",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-06",
+              "rows_in_window": 345,
+              "missing_minutes": 56,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-09",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-10",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-11",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-16",
+              "rows_in_window": 398,
+              "missing_minutes": 3,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-17",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-18",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            },
+            {
+              "ny_date": "2010-08-31",
+              "rows_in_window": 392,
+              "missing_minutes": 9,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                816003
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "OOS OHLCV",
+      "schema": "ohlcv-1m",
+      "period": "2021-01-01 to 2026-01-01",
+      "approved_cost_usd": 6.113059744239,
+      "job_id": "GLBX-20260801-H38JC8CDB7",
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/ZN.v.0/oos_2021-01-01_2026-01-01/GLBX-20260801-H38JC8CDB7/GLBX-20260801-H38JC8CDB7.zip",
+      "size_bytes": 18807620,
+      "size_mb": 17.94,
+      "sha256": "5f4be7b08af64a9204f55aac6e711dfd3121fa477b1461ec87dd215aaea606e4",
+      "zip_file_count": 63,
+      "dbn_zst_count": 60,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20210101-20210131.ohlcv-1m.dbn.zst",
+      "last_dbn": "glbx-mdp3-20251201-20251231.ohlcv-1m.dbn.zst",
+      "validation": {
+        "rows": 1674451,
+        "utc_start": "2021-01-03 23:00:00+00:00",
+        "utc_end": "2025-12-31 21:59:00+00:00",
+        "duplicate_timestamps": 0,
+        "instrument_counts": {
+          "12212": 84816,
+          "69078": 86114,
+          "71412": 85925,
+          "110030": 82111,
+          "146095": 86501,
+          "204527": 52040,
+          "234665": 89166,
+          "338574": 84121,
+          "397730": 82351,
+          "408794": 85230,
+          "507886": 83848,
+          "703006": 87621,
+          "768155": 81011,
+          "42000697": 83078,
+          "42002111": 79827,
+          "42002219": 80871,
+          "42002321": 83418,
+          "42004113": 83494,
+          "42004475": 27955,
+          "42004501": 83869,
+          "42066706": 81084
+        },
+        "mapping_interval_count": 76,
+        "mapping_intervals_sample": [
+          {
+            "start_date": "2021-01-01",
+            "end_date": "2021-02-01",
+            "instrument_id": "204527"
+          },
+          {
+            "start_date": "2021-02-01",
+            "end_date": "2021-02-28",
+            "instrument_id": "204527"
+          },
+          {
+            "start_date": "2021-02-28",
+            "end_date": "2021-03-01",
+            "instrument_id": "408794"
+          },
+          {
+            "start_date": "2021-03-01",
+            "end_date": "2021-04-01",
+            "instrument_id": "408794"
+          },
+          {
+            "start_date": "2021-04-01",
+            "end_date": "2021-05-01",
+            "instrument_id": "408794"
+          },
+          {
+            "start_date": "2021-05-01",
+            "end_date": "2021-05-30",
+            "instrument_id": "408794"
+          },
+          {
+            "start_date": "2021-05-30",
+            "end_date": "2021-06-01",
+            "instrument_id": "703006"
+          },
+          {
+            "start_date": "2021-06-01",
+            "end_date": "2021-07-01",
+            "instrument_id": "703006"
+          },
+          {
+            "start_date": "2021-07-01",
+            "end_date": "2021-08-01",
+            "instrument_id": "703006"
+          },
+          {
+            "start_date": "2021-08-01",
+            "end_date": "2021-09-01",
+            "instrument_id": "703006"
+          },
+          {
+            "start_date": "2021-09-01",
+            "end_date": "2021-10-01",
+            "instrument_id": "507886"
+          },
+          {
+            "start_date": "2021-10-01",
+            "end_date": "2021-11-01",
+            "instrument_id": "507886"
+          },
+          {
+            "start_date": "2021-11-01",
+            "end_date": "2021-12-01",
+            "instrument_id": "507886"
+          },
+          {
+            "start_date": "2021-12-01",
+            "end_date": "2022-01-01",
+            "instrument_id": "768155"
+          },
+          {
+            "start_date": "2022-01-01",
+            "end_date": "2022-02-01",
+            "instrument_id": "768155"
+          },
+          {
+            "start_date": "2022-02-01",
+            "end_date": "2022-02-28",
+            "instrument_id": "768155"
+          },
+          {
+            "start_date": "2022-02-28",
+            "end_date": "2022-03-01",
+            "instrument_id": "146095"
+          },
+          {
+            "start_date": "2022-03-01",
+            "end_date": "2022-04-01",
+            "instrument_id": "146095"
+          },
+          {
+            "start_date": "2022-04-01",
+            "end_date": "2022-05-01",
+            "instrument_id": "146095"
+          },
+          {
+            "start_date": "2022-05-01",
+            "end_date": "2022-05-30",
+            "instrument_id": "146095"
+          },
+          {
+            "start_date": "2022-05-30",
+            "end_date": "2022-06-01",
+            "instrument_id": "234665"
+          },
+          {
+            "start_date": "2022-06-01",
+            "end_date": "2022-07-01",
+            "instrument_id": "234665"
+          },
+          {
+            "start_date": "2022-07-01",
+            "end_date": "2022-08-01",
+            "instrument_id": "234665"
+          },
+          {
+            "start_date": "2022-08-01",
+            "end_date": "2022-08-31",
+            "instrument_id": "234665"
+          },
+          {
+            "start_date": "2022-08-31",
+            "end_date": "2022-09-01",
+            "instrument_id": "71412"
+          },
+          {
+            "start_date": "2022-09-01",
+            "end_date": "2022-10-01",
+            "instrument_id": "71412"
+          },
+          {
+            "start_date": "2022-10-01",
+            "end_date": "2022-11-01",
+            "instrument_id": "71412"
+          },
+          {
+            "start_date": "2022-11-01",
+            "end_date": "2022-11-30",
+            "instrument_id": "71412"
+          },
+          {
+            "start_date": "2022-11-30",
+            "end_date": "2022-12-01",
+            "instrument_id": "397730"
+          },
+          {
+            "start_date": "2022-12-01",
+            "end_date": "2023-01-01",
+            "instrument_id": "397730"
+          }
+        ],
+        "price_stats": {
+          "open": {
+            "min": 105.34375,
+            "max": 138.15625,
+            "zeros": 0,
+            "missing": 0
+          },
+          "high": {
+            "min": 105.375,
+            "max": 138.171875,
+            "zeros": 0,
+            "missing": 0
+          },
+          "low": {
+            "min": 105.328125,
+            "max": 138.15625,
+            "zeros": 0,
+            "missing": 0
+          },
+          "close": {
+            "min": 105.359375,
+            "max": 138.15625,
+            "zeros": 0,
+            "missing": 0
+          }
+        },
+        "volume_stats": {
+          "min": 1,
+          "max": 239310,
+          "zeros": 0,
+          "missing": 0
+        },
+        "paper_window": {
+          "timezone": "America/New_York",
+          "window": "08:20-15:00",
+          "required_boundaries": [
+            "08:20",
+            "08:50",
+            "14:00",
+            "14:30",
+            "15:00"
+          ],
+          "days_checked": 1292,
+          "days_missing_any_boundary": 50,
+          "days_missing_any_minute": 288,
+          "max_missing_minutes": 227,
+          "example_problem_days": [
+            {
+              "ny_date": "2021-01-06",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-01-08",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-01-14",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-01-15",
+              "rows_in_window": 398,
+              "missing_minutes": 3,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-01-18",
+              "rows_in_window": 272,
+              "missing_minutes": 129,
+              "missing_boundaries": [
+                "14:00",
+                "14:30",
+                "15:00"
+              ],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-01-21",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-02",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-03",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-11",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-15",
+              "rows_in_window": 273,
+              "missing_minutes": 128,
+              "missing_boundaries": [
+                "14:00",
+                "14:30",
+                "15:00"
+              ],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-24",
+              "rows_in_window": 396,
+              "missing_minutes": 5,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-02-26",
+              "rows_in_window": 395,
+              "missing_minutes": 6,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                204527
+              ]
+            },
+            {
+              "ny_date": "2021-03-19",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-03-22",
+              "rows_in_window": 399,
+              "missing_minutes": 2,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-03-30",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-04-02",
+              "rows_in_window": 175,
+              "missing_minutes": 226,
+              "missing_boundaries": [
+                "14:00",
+                "14:30",
+                "15:00"
+              ],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-04-19",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-04-21",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-04-22",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            },
+            {
+              "ny_date": "2021-04-23",
+              "rows_in_window": 400,
+              "missing_minutes": 1,
+              "missing_boundaries": [],
+              "instrument_ids": [
+                408794
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

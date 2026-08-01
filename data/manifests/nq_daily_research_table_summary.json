@@ -9,7 +9,7 @@
     "replication": 2443
   },
   "excluded_by_reason": {
-    "missing_boundary_on_regular_day": 7,
+    "missing_exact_boundary_source_on_regular_day": 7,
     "missing_previous_close": 2,
     "nyse_closed": 85,
     "nyse_early_close": 32,
@@ -25,48 +25,75 @@
   "return_summary_included": {
     "r_ONFH": {
       "count": 3667,
-      "mean": 0.00042232461242160346,
-      "std": 0.00849999275036805,
-      "min": -0.07915266062028292,
-      "max": 0.0562863472722237
+      "mean": 0.000475898033944343,
+      "std": 0.008403744469656672,
+      "min": -0.08820474076872231,
+      "max": 0.05722001661896403
     },
     "r_M": {
       "count": 3667,
-      "mean": 0.0002486371307272554,
-      "std": 0.007846981497227245,
-      "min": -0.04491075339465611,
-      "max": 0.06818214209363638
+      "mean": 0.00023194771190017266,
+      "std": 0.007887342062883503,
+      "min": -0.04429313202997631,
+      "max": 0.07616140773220992
     },
     "r_SLH": {
       "count": 3667,
-      "mean": -2.0209631741424055e-05,
-      "std": 0.0023858268187292105,
-      "min": -0.019120393954831005,
-      "max": 0.02456336975810225
+      "mean": -1.5852989521880382e-05,
+      "std": 0.0023437258051990724,
+      "min": -0.01840655927781687,
+      "max": 0.019919841280409134
     },
     "r_ROD": {
       "count": 3667,
-      "mean": 0.0006553358696587401,
-      "std": 0.012187692731467544,
-      "min": -0.08409970190905058,
-      "max": 0.11394792195546533
+      "mean": 0.000697693913223359,
+      "std": 0.01222854172277715,
+      "min": -0.08675669720149837,
+      "max": 0.11077757475564831
     },
     "r_LH": {
       "count": 3667,
-      "mean": 5.163979737543098e-06,
-      "std": 0.0030477735233862937,
-      "min": -0.027340702210663204,
-      "max": 0.0433430386447855
+      "mean": -3.503965787509331e-05,
+      "std": 0.0031788399499189843,
+      "min": -0.04253558994864015,
+      "max": 0.05126083791117875
+    },
+    "r_LH_executable": {
+      "count": 3667,
+      "mean": -3.568219666443592e-05,
+      "std": 0.0031771565144749526,
+      "min": -0.04230450972279687,
+      "max": 0.05098259776351477
     }
   },
   "symbol": "NQ.v.0",
   "dataset": "GLBX.MDP3",
+  "pipeline_version": "boundary_corrected_v1",
   "effective_window": "09:30-16:00 America/New_York",
-  "required_boundaries": [
+  "timezone": "America/New_York",
+  "theoretical_boundary_clocks": {
+    "window_start": "09:30",
+    "open_plus_30": "10:00",
+    "close_minus_60": "15:00",
+    "close_minus_30": "15:30",
+    "close": "16:00"
+  },
+  "source_boundary_clocks": {
+    "window_start": "09:30",
+    "open_plus_30": "09:59",
+    "close_minus_60": "14:59",
+    "close_minus_30": "15:29",
+    "close": "15:59"
+  },
+  "required_source_clocks": [
     "09:30",
-    "10:00",
-    "15:00",
-    "15:30",
-    "16:00"
-  ]
+    "09:59",
+    "14:59",
+    "15:29",
+    "15:59",
+    "15:30"
+  ],
+  "source_boundary_rule": "OHLCV-1m ts_event is interval start; non-open boundary prices use T-1 minute bar close",
+  "session_open_rule": "session open price uses ts_event == open time bar open",
+  "executable_lh_entry_rule": "entry price uses ts_event == close_minus_30 theoretical boundary bar open"
 }

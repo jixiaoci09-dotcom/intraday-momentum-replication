@@ -1,0 +1,92 @@
+{
+  "rows_total": 3869,
+  "rows_included": 3618,
+  "rows_excluded": 251,
+  "calendar_trading_days": 3869,
+  "calendar_effective_close_days": 3752,
+  "included_by_segment": {
+    "oos": 1221,
+    "replication": 2397
+  },
+  "excluded_by_reason": {
+    "calendar_early_close_before_effective_close": 117,
+    "missing_exact_boundary_source_on_calendar_day": 73,
+    "missing_previous_close": 2,
+    "previous_close_cross_instrument": 59
+  },
+  "excluded_by_calendar_close_clock": {
+    "11:00": 4,
+    "13:00": 90,
+    "13:15": 23,
+    "17:00": 134
+  },
+  "date_min": "2010-06-07",
+  "date_max": "2025-12-31",
+  "return_summary_included": {
+    "r_ONFH": {
+      "count": 3618,
+      "mean": 2.3638481727196168e-05,
+      "std": 0.002511483311735873,
+      "min": -0.0108910891089109,
+      "max": 0.019196243612760622
+    },
+    "r_M": {
+      "count": 3618,
+      "mean": 4.2684032743147e-05,
+      "std": 0.0021659859934506443,
+      "min": -0.012567324955116699,
+      "max": 0.01066295781177562
+    },
+    "r_SLH": {
+      "count": 3618,
+      "mean": -1.7954331157008138e-05,
+      "std": 0.0006729801101403308,
+      "min": -0.006016123210203395,
+      "max": 0.008818342151675429
+    },
+    "r_ROD": {
+      "count": 3618,
+      "mean": 4.816154205607779e-05,
+      "std": 0.003322020469952291,
+      "min": -0.013938165230613309,
+      "max": 0.01883585894349249
+    },
+    "r_LH": {
+      "count": 3618,
+      "mean": -1.5927788098130123e-05,
+      "std": 0.0006338941992457846,
+      "min": -0.004778240627297259,
+      "max": 0.007762280169799851
+    },
+    "r_LH_executable": {
+      "count": 3618,
+      "mean": -1.3330423815446582e-05,
+      "std": 0.0006313654404943054,
+      "min": -0.004778240627297259,
+      "max": 0.007762280169799851
+    }
+  },
+  "symbol": "ZN.v.0",
+  "dataset": "GLBX.MDP3",
+  "pipeline_version": "boundary_corrected_v1",
+  "calendar": "CME_Bond",
+  "timezone": "America/New_York",
+  "effective_window": "08:20-15:00",
+  "theoretical_boundary_clocks": {
+    "window_start": "08:20",
+    "open_plus_30": "08:50",
+    "close_minus_60": "14:00",
+    "close_minus_30": "14:30",
+    "close": "15:00"
+  },
+  "source_boundary_clocks": {
+    "window_start": "08:20",
+    "open_plus_30": "08:49",
+    "close_minus_60": "13:59",
+    "close_minus_30": "14:29",
+    "close": "14:59"
+  },
+  "source_boundary_rule": "OHLCV-1m ts_event is interval start; non-open boundary prices use T-1 minute bar close",
+  "session_open_rule": "session open price uses ts_event == open time bar open",
+  "executable_lh_entry_rule": "entry price uses ts_event == close_minus_30 theoretical boundary bar open"
+}
