@@ -21,13 +21,14 @@
 
 ```text
 intraday_momentum/
-  boundaries.py        # 六个期货品种的交易时间和取价规则
+  trading_times.py     # 六个期货品种的交易时间和取价规则
 
 scripts/
-  download_symbol_batch.py          # 下载一个品种的数据
-  build_fixed_window_daily_table.py # 把一分钟数据整理成每日研究表
-  run_symbol_core_replication.py    # 对一个品种跑回归和策略统计
-  freeze_baseline.py                # 汇总六个品种的最终结果
+  download_data.py     # 下载一个品种的数据
+  build_daily_data.py  # 把一分钟数据整理成每日研究表
+  run_analysis.py      # 对一个品种跑回归和策略统计
+  make_summary.py      # 汇总六个品种的最终结果
+  check_data.py        # 检查本地下载的数据
 
 reports/
   final_baseline_summary_zh.md      # 中文结果总结
@@ -41,8 +42,8 @@ docs/
   data_policy.md                    # 数据和密钥不能上传到 GitHub 的说明
 
 tests/
-  test_boundary_rules.py            # 检查交易时间边界
-  test_oos_methods.py               # 检查样本外方法
+  test_trading_times.py # 检查交易时间
+  test_oos_methods.py   # 检查样本外方法
 ```
 
 仓库中没有上传原始行情数据。因为 Databento 数据有授权限制，
@@ -114,14 +115,14 @@ export DATABENTO_API_KEY="your_key_here"
 下载某个品种的数据，例如 ES：
 
 ```bash
-python scripts/download_symbol_batch.py --symbol ES.v.0 --approved-total 0
+python scripts/download_data.py --symbol ES.v.0 --approved-total 0
 ```
 
 把一分钟数据整理成每日研究表。不同品种需要使用不同的交易时间，
-这些时间可以在 `intraday_momentum/boundaries.py` 里查看。
+这些时间可以在 `intraday_momentum/trading_times.py` 里查看。
 
 ```bash
-python scripts/build_fixed_window_daily_table.py \
+python scripts/build_daily_data.py \
   --symbol ES.v.0 \
   --calendar NYSE \
   --window-start 09:30 \
@@ -134,19 +135,19 @@ python scripts/build_fixed_window_daily_table.py \
 运行一个品种的核心复现：
 
 ```bash
-python scripts/run_symbol_core_replication.py --symbol ES.v.0
+python scripts/run_analysis.py --symbol ES.v.0
 ```
 
 如果六个品种都已经处理完成，可以生成最终汇总：
 
 ```bash
-python scripts/freeze_baseline.py
+python scripts/make_summary.py
 ```
 
 也可以运行测试：
 
 ```bash
-python -m unittest tests/test_boundary_rules.py tests/test_oos_methods.py
+python -m unittest tests/test_trading_times.py tests/test_oos_methods.py
 ```
 
 ## 数据说明
@@ -170,4 +171,3 @@ python -m unittest tests/test_boundary_rules.py tests/test_oos_methods.py
 - 使用的是连续期货合约，和论文原始数据可能不完全一样。
 - 样本外结果只能说明历史统计关系，不能直接说明可以真实交易获利。
 - 交易成本、滑点和实际成交问题这里只做了比较简单的讨论。
-

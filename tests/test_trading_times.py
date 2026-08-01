@@ -4,7 +4,7 @@ import unittest
 
 import pandas as pd
 
-from intraday_momentum.boundaries import (
+from intraday_momentum.trading_times import (
     SYMBOL_WINDOWS,
     boundary_plan,
     boundary_value,

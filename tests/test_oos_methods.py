@@ -4,7 +4,7 @@ import unittest
 
 import pandas as pd
 
-from scripts.run_symbol_core_replication import (
+from scripts.run_analysis import (
     STRICT_REPLICATION_END,
     common_valid_sample,
     cost_adjusted_strategy_returns,

@@ -16,7 +16,7 @@ import pandas_market_calendars as mcal
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from intraday_momentum.boundaries import (
+from intraday_momentum.trading_times import (
     NY_TZ,
     REQUIRED_FIELDS,
     STAT_CLOSE_FIELDS,
