@@ -5,7 +5,7 @@ This file records the inputs, model choices, and output files for this symbol's 
 ```json
 {
   "symbol": "6E.v.0",
-  "data_version": "boundary_corrected_v1",
+  "pipeline_version": "boundary_corrected_v1",
   "daily_table": "data/processed/6e_daily_research_table.parquet",
   "regression_specs": {
     "eq5_onfh": [

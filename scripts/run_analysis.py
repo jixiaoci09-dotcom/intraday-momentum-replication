@@ -144,7 +144,7 @@ def regression_summary(df: pd.DataFrame, sample_name: str, spec_name: str, predi
     model, hac, maxlags = fit_hac(model_df["r_LH"], model_df[predictors])
     params, bse, tvalues, pvalues, conf = robust_parts(model, hac)
     row = {
-        "data_version": PIPELINE_VERSION,
+        "pipeline_version": PIPELINE_VERSION,
         "sample": sample_name,
         "sample_scope": "equation_available",
         "spec": spec_name,

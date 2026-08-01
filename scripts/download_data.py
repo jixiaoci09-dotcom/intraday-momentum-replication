@@ -71,7 +71,8 @@ REQUESTS = [
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--symbol", required=True, help="Continuous symbol, e.g. NQ.v.0")
-    parser.add_argument("--approved-total", required=True, type=float)
+    parser.add_argument("--approved-total", type=float)
+    parser.add_argument("--estimate-only", action="store_true", help="Only print the estimated Databento cost")
     parser.add_argument("--max-cost-drift", type=float, default=0.01)
     parser.add_argument("--poll-seconds", type=int, default=120)
     return parser.parse_args()
@@ -217,6 +218,12 @@ def main() -> None:
         request = row["request"]
         print(f"{request.label:<24} {request.schema:<10} {request.start[:10]} to {request.end[:10]}: ${row['cost']:.4f}")
     print(f"TOTAL: ${total:.4f}")
+
+    if args.estimate_only:
+        return
+
+    if args.approved_total is None:
+        raise SystemExit("Set --approved-total after checking the estimated cost, or use --estimate-only.")
 
     if total > args.approved_total + args.max_cost_drift:
         raise SystemExit(

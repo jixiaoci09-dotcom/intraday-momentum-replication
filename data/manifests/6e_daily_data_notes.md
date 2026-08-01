@@ -32,10 +32,10 @@ uploaded to GitHub.
 | Category | Count |
 | --- | ---: |
 | Candidate dates | 3,872 |
-| Included dates | 3,668 |
-| Excluded dates | 204 |
-| Included replication dates | 2,430 |
-| Included OOS dates | 1,238 |
+| Included dates | 3,645 |
+| Excluded dates | 227 |
+| Included replication dates | 2,417 |
+| Included OOS dates | 1,228 |
 
 Date range: `2010-06-07` to `2025-12-31`.
 
@@ -45,19 +45,19 @@ Date range: `2010-06-07` to `2025-12-31`.
 | --- | ---: | --- |
 | `calendar_closed` | 2 | Candidate date appears in data but is closed in the selected product calendar |
 | `calendar_early_close_before_effective_close` | 92 | Product calendar closes before the `14:00` effective close |
-| `missing_boundary_on_calendar_day` | 48 | Calendar trading days with missing required boundary bars |
+| `missing_exact_boundary_source_on_calendar_day` | 73 | Calendar trading days with missing required boundary bars |
 | `missing_previous_close` | 2 | First candidate date in each sample segment has no prior effective close |
-| `previous_close_cross_instrument` | 60 | Prior close and current boundaries are from different `instrument_id` values |
+| `previous_close_cross_instrument` | 58 | Prior close and current boundaries are from different `instrument_id` values |
 
 ## Included Return Summary
 
 | Variable | Count | Mean | Std | Min | Max |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `r_ONFH` | 3,668 | -0.000114 | 0.003764 | -0.026201 | 0.021839 |
-| `r_M` | 3,668 | -0.000001 | 0.003504 | -0.021492 | 0.028715 |
-| `r_SLH` | 3,668 | 0.000028 | 0.000782 | -0.010440 | 0.006868 |
-| `r_ROD` | 3,668 | -0.000086 | 0.005179 | -0.021262 | 0.028905 |
-| `r_LH` | 3,668 | -0.000002 | 0.000864 | -0.007488 | 0.009626 |
+| `r_ONFH` | 3,645 | -0.000117 | 0.003809 | -0.026242 | 0.021931 |
+| `r_M` | 3,645 | -0.000012 | 0.003500 | -0.021145 | 0.029712 |
+| `r_SLH` | 3,645 | 0.000035 | 0.000830 | -0.014302 | 0.009392 |
+| `r_ROD` | 3,645 | -0.000094 | 0.005231 | -0.022254 | 0.029672 |
+| `r_LH` | 3,645 | 0.000002 | 0.000817 | -0.012130 | 0.013492 |
 
 Databento definitions show two `min_price_increment` values historically for
 6E, `0.0001` and `0.00005`; the current OOS period uses `0.00005`. Tick-cost

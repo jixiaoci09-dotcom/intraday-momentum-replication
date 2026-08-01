@@ -114,11 +114,19 @@ python -m pip install -r requirements.txt
 export DATABENTO_API_KEY="your_key_here"
 ```
 
-下载某个品种的数据，例如 ES：
+先估算某个品种的数据下载费用，例如 ES：
 
 ```bash
-python scripts/download_data.py --symbol ES.v.0 --approved-total 0
+python scripts/download_data.py --symbol ES.v.0 --estimate-only
 ```
+
+确认费用后，再把 `25` 改成自己能接受的美元金额：
+
+```bash
+python scripts/download_data.py --symbol ES.v.0 --approved-total 25
+```
+
+如果估算费用高于 `--approved-total`，脚本会在提交下载任务前停止。
 
 把一分钟数据整理成每日研究表。不同品种需要使用不同的交易时间，
 这些时间可以在 `intraday_momentum/trading_times.py` 里查看。
@@ -150,6 +158,12 @@ python scripts/make_summary.py
 
 ```bash
 python -m unittest tests/test_trading_times.py tests/test_oos_methods.py
+```
+
+公开或打包前，可以检查说明文件和结果表是否一致：
+
+```bash
+python scripts/check_project_files.py
 ```
 
 ## 数据说明

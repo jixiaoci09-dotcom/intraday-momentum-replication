@@ -32,10 +32,10 @@ uploaded to GitHub.
 | Category | Count |
 | --- | ---: |
 | Candidate dates | 3,869 |
-| Included dates | 3,535 |
-| Excluded dates | 334 |
-| Included replication dates | 2,347 |
-| Included OOS dates | 1,188 |
+| Included dates | 3,576 |
+| Excluded dates | 293 |
+| Included replication dates | 2,363 |
+| Included OOS dates | 1,213 |
 
 Date range: `2010-06-07` to `2025-12-31`.
 
@@ -43,8 +43,8 @@ Date range: `2010-06-07` to `2025-12-31`.
 
 | Reason | Count | Interpretation |
 | --- | ---: | --- |
-| `calendar_early_close_before_effective_close` | 83 | Product calendar closes before the `14:30` effective close |
-| `missing_boundary_on_calendar_day` | 69 | Calendar trading days with missing required boundary bars |
+| `calendar_early_close_before_effective_close` | 79 | Product calendar closes before the `14:30` effective close |
+| `missing_exact_boundary_source_on_calendar_day` | 32 | Calendar trading days with missing required boundary bars |
 | `missing_previous_close` | 2 | First candidate date in each sample segment has no prior effective close |
 | `previous_close_cross_instrument` | 180 | Prior close and current boundaries are from different `instrument_id` values |
 
@@ -52,11 +52,11 @@ Date range: `2010-06-07` to `2025-12-31`.
 
 | Variable | Count | Mean | Std | Min | Max |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `r_ONFH` | 3,535 | 0.000197 | 0.019046 | -0.277251 | 0.234873 |
-| `r_M` | 3,535 | -0.000162 | 0.014200 | -0.221771 | 0.108157 |
-| `r_SLH` | 3,535 | -0.000173 | 0.005484 | -0.209383 | 0.028090 |
-| `r_ROD` | 3,535 | -0.000092 | 0.025327 | -0.554358 | 0.241071 |
-| `r_LH` | 3,535 | 0.000119 | 0.007441 | -0.046129 | 0.283516 |
+| `r_ONFH` | 3,576 | 0.000173 | 0.018949 | -0.285379 | 0.253236 |
+| `r_M` | 3,576 | -0.000309 | 0.014087 | -0.224080 | 0.110759 |
+| `r_SLH` | 3,576 | -0.000094 | 0.005152 | -0.184483 | 0.033115 |
+| `r_ROD` | 3,576 | -0.000192 | 0.024887 | -0.533990 | 0.251618 |
+| `r_LH` | 3,576 | 0.000144 | 0.006941 | -0.066149 | 0.221987 |
 
 The CL sample contains very large 2020 oil-stress returns, although included
 prices remain positive under the current continuous-contract and same-contract

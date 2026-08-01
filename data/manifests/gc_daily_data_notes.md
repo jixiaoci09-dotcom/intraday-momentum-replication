@@ -32,10 +32,10 @@ uploaded to GitHub.
 | Category | Count |
 | --- | ---: |
 | Candidate dates | 3,869 |
-| Included dates | 3,651 |
-| Excluded dates | 218 |
-| Included replication dates | 2,421 |
-| Included OOS dates | 1,230 |
+| Included dates | 3,640 |
+| Excluded dates | 229 |
+| Included replication dates | 2,414 |
+| Included OOS dates | 1,226 |
 
 Date range: `2010-06-07` to `2025-12-31`.
 
@@ -44,7 +44,7 @@ Date range: `2010-06-07` to `2025-12-31`.
 | Reason | Count | Interpretation |
 | --- | ---: | --- |
 | `calendar_early_close_before_effective_close` | 67 | Product calendar closes before the `13:30` effective close |
-| `missing_boundary_on_calendar_day` | 74 | Calendar trading days with missing required boundary bars |
+| `missing_exact_boundary_source_on_calendar_day` | 85 | Calendar trading days with missing required boundary bars |
 | `missing_previous_close` | 2 | First candidate date in each sample segment has no prior effective close |
 | `previous_close_cross_instrument` | 75 | Prior close and current boundaries are from different `instrument_id` values |
 
@@ -52,10 +52,10 @@ Date range: `2010-06-07` to `2025-12-31`.
 
 | Variable | Count | Mean | Std | Min | Max |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `r_ONFH` | 3,651 | 0.000229 | 0.007877 | -0.053364 | 0.069047 |
-| `r_M` | 3,651 | -0.000076 | 0.005619 | -0.040171 | 0.034150 |
-| `r_SLH` | 3,651 | 0.000051 | 0.001402 | -0.009737 | 0.019394 |
-| `r_ROD` | 3,651 | 0.000206 | 0.009880 | -0.086342 | 0.056847 |
-| `r_LH` | 3,651 | -0.000018 | 0.001451 | -0.010539 | 0.007151 |
+| `r_ONFH` | 3,640 | 0.000255 | 0.007839 | -0.052846 | 0.067922 |
+| `r_M` | 3,640 | -0.000088 | 0.005606 | -0.038014 | 0.034211 |
+| `r_SLH` | 3,640 | 0.000039 | 0.001385 | -0.011419 | 0.015857 |
+| `r_ROD` | 3,640 | 0.000207 | 0.009878 | -0.086481 | 0.057644 |
+| `r_LH` | 3,640 | -0.000019 | 0.001465 | -0.015048 | 0.009400 |
 
 Regression and strategy outputs are stored separately in `reports/tables/`.

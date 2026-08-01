@@ -40,21 +40,21 @@ Date range: `2010-06-07` to `2025-12-31`.
 
 | Reason | Count | Interpretation |
 | --- | ---: | --- |
-| `missing_boundary_on_regular_day` | 7 | NYSE regular-close days with missing required boundary bars |
-| `missing_previous_close` | 1 | First candidate date has no prior close |
+| `missing_exact_boundary_source_on_regular_day` | 7 | NYSE regular-close days with missing required boundary bars |
+| `missing_previous_close` | 2 | First candidate date in each sample segment has no prior close |
 | `nyse_closed` | 85 | CME had relevant observations but NYSE was closed |
 | `nyse_early_close` | 32 | NYSE early-close days removed from the sample |
-| `previous_close_cross_instrument` | 61 | Prior close and current boundaries are from different `instrument_id` values |
+| `previous_close_cross_instrument` | 60 | Prior close and current boundaries are from different `instrument_id` values |
 
 ## Included Return Summary
 
 | Variable | Count | Mean | Std | Min | Max |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `r_ONFH` | 3,667 | 0.000280 | 0.007217 | -0.090664 | 0.064348 |
-| `r_M` | 3,667 | 0.000231 | 0.006352 | -0.041067 | 0.056985 |
-| `r_SLH` | 3,667 | 0.000018 | 0.002097 | -0.019671 | 0.027721 |
-| `r_ROD` | 3,667 | 0.000532 | 0.010066 | -0.093541 | 0.093463 |
-| `r_LH` | 3,667 | -0.000017 | 0.002751 | -0.026830 | 0.043781 |
+| `r_ONFH` | 3,667 | 0.000297 | 0.007123 | -0.094129 | 0.060562 |
+| `r_M` | 3,667 | 0.000228 | 0.006376 | -0.040246 | 0.062596 |
+| `r_SLH` | 3,667 | 0.000029 | 0.002045 | -0.015359 | 0.023120 |
+| `r_ROD` | 3,667 | 0.000557 | 0.010073 | -0.093019 | 0.088341 |
+| `r_LH` | 3,667 | -0.000038 | 0.002900 | -0.026608 | 0.046849 |
 
 These are descriptive checks only. Regression and strategy results are stored
 separately in `reports/tables/`.
