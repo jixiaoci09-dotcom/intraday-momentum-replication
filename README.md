@@ -1,4 +1,6 @@
-# 日内动量论文复现项目
+# Does Market Intraday Momentum Survive?
+
+基于六个 CME 期货品种的日内动量复现与样本外检验。
 
 这个项目是对 Baltussen、Da、Lammers 和 Martens 的论文
 《Hedging Demand and Market Intraday Momentum》做一个基础复现。
