@@ -14,16 +14,16 @@ from intraday_momentum.trading_times import (
 )
 
 
-class BoundaryRulesTest(unittest.TestCase):
-    def test_es_close_boundary_uses_1559_close(self) -> None:
+class TradingTimesTest(unittest.TestCase):
+    def test_es_close_uses_1559_close(self) -> None:
         es = SYMBOL_WINDOWS["ES.v.0"]
         self.assertEqual(source_clock_for_field(es, "close"), "15:59")
 
-    def test_gc_close_boundary_uses_1329_close(self) -> None:
+    def test_gc_close_uses_1329_close(self) -> None:
         gc = SYMBOL_WINDOWS["GC.v.0"]
         self.assertEqual(source_clock_for_field(gc, "close"), "13:29")
 
-    def test_all_close_boundaries_use_theoretical_minus_one_minute(self) -> None:
+    def test_all_close_times_use_previous_minute_close(self) -> None:
         for window in SYMBOL_WINDOWS.values():
             for field in ["open_plus_30", "close_minus_60", "close_minus_30", "close"]:
                 expected = (
@@ -46,7 +46,7 @@ class BoundaryRulesTest(unittest.TestCase):
         )
         self.assertEqual(boundary_value(group, "09:30", "open"), 100.0)
 
-    def test_missing_exact_boundary_is_recorded(self) -> None:
+    def test_missing_required_price_time_is_recorded(self) -> None:
         es = SYMBOL_WINDOWS["ES.v.0"]
         present = {"09:30", "09:59", "14:59", "15:29"}
         missing = missing_required_sources(present, es, include_entry=True)
