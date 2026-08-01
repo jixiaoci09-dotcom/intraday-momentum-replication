@@ -1,0 +1,72 @@
+{
+  "rows_total": 3853,
+  "rows_included": 3667,
+  "rows_excluded": 186,
+  "nyse_trading_days": 3768,
+  "nyse_regular_close_days": 3736,
+  "included_by_segment": {
+    "oos": 1224,
+    "replication": 2443
+  },
+  "excluded_by_reason": {
+    "missing_boundary_on_regular_day": 7,
+    "missing_previous_close": 2,
+    "nyse_closed": 85,
+    "nyse_early_close": 32,
+    "previous_close_cross_instrument": 60
+  },
+  "excluded_by_nyse_close_clock": {
+    "": 85,
+    "13:00": 32,
+    "16:00": 69
+  },
+  "date_min": "2010-06-07",
+  "date_max": "2025-12-31",
+  "return_summary_included": {
+    "r_ONFH": {
+      "count": 3667,
+      "mean": 0.00042232461242160346,
+      "std": 0.00849999275036805,
+      "min": -0.07915266062028292,
+      "max": 0.0562863472722237
+    },
+    "r_M": {
+      "count": 3667,
+      "mean": 0.0002486371307272554,
+      "std": 0.007846981497227245,
+      "min": -0.04491075339465611,
+      "max": 0.06818214209363638
+    },
+    "r_SLH": {
+      "count": 3667,
+      "mean": -2.0209631741424055e-05,
+      "std": 0.0023858268187292105,
+      "min": -0.019120393954831005,
+      "max": 0.02456336975810225
+    },
+    "r_ROD": {
+      "count": 3667,
+      "mean": 0.0006553358696587401,
+      "std": 0.012187692731467544,
+      "min": -0.08409970190905058,
+      "max": 0.11394792195546533
+    },
+    "r_LH": {
+      "count": 3667,
+      "mean": 5.163979737543098e-06,
+      "std": 0.0030477735233862937,
+      "min": -0.027340702210663204,
+      "max": 0.0433430386447855
+    }
+  },
+  "symbol": "NQ.v.0",
+  "dataset": "GLBX.MDP3",
+  "effective_window": "09:30-16:00 America/New_York",
+  "required_boundaries": [
+    "09:30",
+    "10:00",
+    "15:00",
+    "15:30",
+    "16:00"
+  ]
+}

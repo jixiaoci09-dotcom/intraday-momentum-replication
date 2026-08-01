@@ -142,6 +142,59 @@ relation between rest-of-day and last-half-hour returns in ES futures during
 the model produces a negative out-of-sample R^2, indicating no improvement over
 the historical-mean forecast.
 
+## NQ Data Acquisition
+
+NQ was downloaded after ES to test whether the ES result extends to the other
+U.S. equity index future before buying the remaining non-equity contracts. The
+approved Databento total was `$18.4628`, covering:
+
+- NQ `ohlcv-1m`, 2010-06-06 to 2020-06-01.
+- NQ `ohlcv-1m`, 2021-01-01 to 2026-01-01.
+- NQ `definition` data for both periods.
+
+The raw files remain local under `data/raw/` and are ignored by Git. The
+download and validation manifest is stored in
+`data/manifests/nq_v_0_2010-2025_download_manifest.md`.
+
+Initial NQ validation found:
+
+- 3,288,145 replication OHLCV rows and 1,768,326 OOS OHLCV rows.
+- `min_price_increment = 0.25` in definitions.
+- 74 replication-window and 44 OOS-window dates missing key `09:30-16:00`
+  boundaries, matching the expected holiday and early-close pattern seen in ES.
+
+## NQ Core Replication
+
+The NQ daily research table uses the same U.S. equity-index effective window as
+ES: `09:30-16:00` New York time. The baseline table includes 3,667 dates:
+2,443 in the 2010-2020 replication window and 1,224 in the 2021-2025 OOS
+window.
+
+Current NQ-only gross results:
+
+- Eq. (5), replication window: `beta_ONFH * 100 = 3.94`,
+  Newey-West `t = 1.42`, `p = 0.155`.
+- Eq. (6), replication window: `beta_ONFH * 100 = 3.74`, `beta_M * 100 = 1.36`,
+  and `beta_SLH * 100 = 13.11`; only `beta_SLH` is close to conventional
+  significance with `p = 0.075`.
+- Eq. (7), replication window: `beta_ROD * 100 = 3.19`,
+  Newey-West `t = 1.93`, `p = 0.053`. The sign is consistent with the paper,
+  but the evidence is slightly weaker than the common 5% threshold.
+- Eq. (7), OOS window: `beta_ROD * 100 = -0.11`,
+  Newey-West `t = -0.12`, `p = 0.901`. There is no stable positive OOS
+  predictive relation.
+- A pooled period-interaction test for Eq. (7) estimates
+  `beta_OOS - beta_replication = -3.30` percentage points with Newey-West
+  `t = -1.76`, `p = 0.078`. This is not significant at the common 5% level;
+  it is only suggestive at roughly the 10% level. Therefore, NQ should be
+  described as showing no stable OOS predictive relation and only weak
+  evidence of coefficient attenuation, unlike the stronger ES period-difference
+  evidence.
+- Fixed-split OOS `R^2` values are negative for all three NQ specifications:
+  Eq. (5) `-2.92%`, Eq. (6) `-1.88%`, and Eq. (7) `-2.40%`.
+- The replication-window `r_ROD` timing strategy has annualized gross return
+  `3.25%` and Sharpe `0.66`; OOS gross return is `-1.62%` with Sharpe `-0.34`.
+
 ## Data Policy
 
 Do not commit licensed Databento market data, API keys, billing information,
@@ -177,6 +230,24 @@ python scripts/check_databento_cost.py \
   --schema ohlcv-1m \
   --start 2024-01-01 \
   --end 2024-02-01
+```
+
+Check the full replication plus OOS cost for one continuous futures symbol:
+
+```bash
+python scripts/check_symbol_full_cost.py --symbol NQ.v.0
+```
+
+Download an approved full symbol batch:
+
+```bash
+python scripts/download_symbol_batch.py --symbol NQ.v.0 --approved-total 18.4628
+```
+
+Validate a downloaded full symbol batch:
+
+```bash
+python scripts/validate_symbol_downloads.py --symbol NQ.v.0
 ```
 
 Download the approved GC sample:
