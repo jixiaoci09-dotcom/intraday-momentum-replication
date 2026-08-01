@@ -1,8 +1,8 @@
-# CL Daily Research Table Manifest
+# CL Daily Data Notes
 
-## Purpose
+## What This File Records
 
-This manifest documents the first CL daily research table built from local
+This file records the CL daily research table built from local
 Databento `CL.v.0` `ohlcv-1m` downloads. The table uses the paper's NYMEX crude
 oil effective trading window rather than a generic CME calendar.
 
@@ -10,7 +10,7 @@ oil effective trading window rather than a generic CME calendar.
 
 - Processed table: `data/processed/cl_daily_research_table.parquet`
 - Git status: ignored by `.gitignore`; not committed
-- Git-tracked summary: `data/manifests/cl_daily_research_table_summary.json`
+- GitHub summary file: `data/manifests/cl_daily_data_summary.json`
 
 The processed table is derived from licensed Databento data and must not be
 uploaded to GitHub.

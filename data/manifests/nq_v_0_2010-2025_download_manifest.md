@@ -1,4 +1,4 @@
-# NQ.v.0 2010-2025 Download And Validation Manifest
+# NQ.v.0 2010-2025 Download Notes
 
 Raw licensed Databento files remain local under `data/raw/` and are ignored by Git.
 
@@ -13,7 +13,7 @@ Raw licensed Databento files remain local under `data/raw/` and are ignored by G
 | replication OHLCV | `ohlcv-1m` | 2010-06-06 to 2020-06-01 | `$12.0043` | 46.54 MB | 120 | `837666ad9973e6e0b3a9b3421de50797755af56df0a6323754ce6d2f8c08b2a3` |
 | OOS OHLCV | `ohlcv-1m` | 2021-01-01 to 2026-01-01 | `$6.4558` | 32.43 MB | 60 | `a120b837f07fd4ace7f10dcda07898706fe4e12d35921cac83e9090bccfe665f` |
 
-## Validation Summary
+## Data Check Summary
 
 ### replication definitions
 

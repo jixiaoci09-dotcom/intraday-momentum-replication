@@ -1,12 +1,12 @@
-# 6E.v.0 Core Replication Manifest
+# ZN.v.0 Analysis Notes
 
-This replication uses the frozen cleaned daily table rules for the symbol and the paper's Table 2 Eq. (5)-(7) and Table 6 Eq. (12) logic.
+This file records the inputs, model choices, and output files for this symbol's analysis.
 
 ```json
 {
-  "symbol": "6E.v.0",
-  "pipeline_version": "boundary_corrected_v1",
-  "daily_table": "data/processed/6e_daily_research_table.parquet",
+  "symbol": "ZN.v.0",
+  "data_version": "boundary_corrected_v1",
+  "daily_table": "data/processed/zn_daily_research_table.parquet",
   "regression_specs": {
     "eq5_onfh": [
       "r_ONFH"
@@ -28,10 +28,10 @@ This replication uses the frozen cleaned daily table rules for the symbol and th
   "beta_difference_test": "pooled regression with OOS dummy and predictor-by-OOS interactions",
   "oos_r2": {
     "expanding": "Each OOS prediction day re-estimates using strict replication sample plus prior OOS observations; benchmark mean also updates through t-1.",
-    "frozen_2020": "Estimate once using strict replication sample through 2020-05-01; benchmark mean fixed through OOS."
+    "fixed_sample": "Estimate once using strict replication sample through 2020-05-01; benchmark mean fixed through OOS."
   },
   "annualization_days": 252,
-  "tick_size": 5e-05,
+  "tick_size": 0.015625,
   "round_trip_tick_costs": [
     0,
     1,
@@ -48,23 +48,23 @@ This replication uses the frozen cleaned daily table rules for the symbol and th
     "replication": {
       "start": "2010-06-08",
       "end": "2020-05-01",
-      "nobs": 2398,
-      "common_valid_nobs": 2398
+      "nobs": 2379,
+      "common_valid_nobs": 2379
     },
     "oos": {
       "start": "2021-01-05",
       "end": "2025-12-31",
-      "nobs": 1228,
-      "common_valid_nobs": 1228
+      "nobs": 1221,
+      "common_valid_nobs": 1221
     }
   },
   "outputs": {
-    "regression": "reports/tables/6e_core_regression_summary.csv",
-    "beta_diff": "reports/tables/6e_core_beta_difference_tests.csv",
-    "oos_r2": "reports/tables/6e_core_oos_r2.csv",
-    "strategy": "reports/tables/6e_core_strategy_summary.csv",
-    "yearly": "reports/tables/6e_core_strategy_by_year.csv",
-    "manifest": "data/manifests/6e_core_replication_manifest.md"
+    "regression": "reports/tables/zn_core_regression_summary.csv",
+    "beta_diff": "reports/tables/zn_core_beta_difference_tests.csv",
+    "oos_r2": "reports/tables/zn_core_oos_r2.csv",
+    "strategy": "reports/tables/zn_core_strategy_summary.csv",
+    "yearly": "reports/tables/zn_core_strategy_by_year.csv",
+    "notes": "data/manifests/zn_analysis_notes.md"
   }
 }
 ```

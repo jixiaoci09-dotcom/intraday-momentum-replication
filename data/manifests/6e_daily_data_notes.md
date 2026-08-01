@@ -1,8 +1,8 @@
-# 6E Daily Research Table Manifest
+# 6E Daily Data Notes
 
-## Purpose
+## What This File Records
 
-This manifest documents the first 6E daily research table built from local
+This file records the 6E daily research table built from local
 Databento `6E.v.0` `ohlcv-1m` downloads. The table uses the paper's CME Euro FX
 effective trading window.
 
@@ -10,7 +10,7 @@ effective trading window.
 
 - Processed table: `data/processed/6e_daily_research_table.parquet`
 - Git status: ignored by `.gitignore`; not committed
-- Git-tracked summary: `data/manifests/6e_daily_research_table_summary.json`
+- GitHub summary file: `data/manifests/6e_daily_data_summary.json`
 
 The processed table is derived from licensed Databento data and must not be
 uploaded to GitHub.

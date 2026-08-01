@@ -1,8 +1,8 @@
-# GC Daily Research Table Manifest
+# GC Daily Data Notes
 
-## Purpose
+## What This File Records
 
-This manifest documents the first GC daily research table built from local
+This file records the GC daily research table built from local
 Databento `GC.v.0` `ohlcv-1m` downloads. The table uses the paper's COMEX gold
 effective trading window rather than the U.S. equity-index window.
 
@@ -10,7 +10,7 @@ effective trading window rather than the U.S. equity-index window.
 
 - Processed table: `data/processed/gc_daily_research_table.parquet`
 - Git status: ignored by `.gitignore`; not committed
-- Git-tracked summary: `data/manifests/gc_daily_research_table_summary.json`
+- GitHub summary file: `data/manifests/gc_daily_data_summary.json`
 
 The processed table is derived from licensed Databento data and must not be
 uploaded to GitHub.

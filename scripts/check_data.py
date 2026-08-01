@@ -39,7 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--required-boundaries",
         default="09:30,10:00,15:00,15:30,16:00",
-        help="Comma-separated New York clock times required for the baseline table.",
+        help="Comma-separated New York clock times required for the daily table.",
     )
     return parser.parse_args()
 

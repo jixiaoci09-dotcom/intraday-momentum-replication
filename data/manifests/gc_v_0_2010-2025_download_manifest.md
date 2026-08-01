@@ -1,4 +1,4 @@
-# GC.v.0 2010-2025 Download And Validation Manifest
+# GC.v.0 2010-2025 Download Notes
 
 Raw licensed Databento files remain local under `data/raw/` and are ignored by Git.
 
@@ -13,7 +13,7 @@ Raw licensed Databento files remain local under `data/raw/` and are ignored by G
 | replication OHLCV | `ohlcv-1m` | 2010-06-06 to 2020-06-01 | `$12.5616` | 45.41 MB | 120 | `75374aa5dabd46eb480866db5bd21dfe4e988b4e89b0de544f2e5d088f337414` |
 | OOS OHLCV | `ohlcv-1m` | 2021-01-01 to 2026-01-01 | `$6.3778` | 25.16 MB | 60 | `5ce51a7f12a48a583a6ff8abfd48b1714fd8a70e722b7f4beb1e8061842f7cac` |
 
-## Validation Summary
+## Data Check Summary
 
 ### replication definitions
 

@@ -1,16 +1,15 @@
-# NQ Daily Research Table Manifest
+# NQ Daily Data Notes
 
-## Purpose
+## What This File Records
 
-This manifest documents the first NQ daily research table built from local
-Databento `NQ.v.0` `ohlcv-1m` downloads. The table follows the frozen
-U.S. equity-index rules used for ES.
+This file records the NQ daily research table built from local
+Databento `NQ.v.0` `ohlcv-1m` downloads. The table follows the same U.S. equity-index timing choices used for ES.
 
 ## Local Output
 
 - Processed table: `data/processed/nq_daily_research_table.parquet`
 - Git status: ignored by `.gitignore`; not committed
-- Git-tracked summary: `data/manifests/nq_daily_research_table_summary.json`
+- GitHub summary file: `data/manifests/nq_daily_data_summary.json`
 
 The processed table is derived from licensed Databento data and must not be
 uploaded to GitHub.
@@ -45,7 +44,7 @@ Date range: `2010-06-07` to `2025-12-31`.
 | `missing_boundary_on_regular_day` | 7 | NYSE regular-close days with missing required boundary bars |
 | `missing_previous_close` | 2 | First candidate date in each sample segment has no prior close |
 | `nyse_closed` | 85 | CME had relevant observations but NYSE was closed |
-| `nyse_early_close` | 32 | NYSE early-close days removed from the baseline |
+| `nyse_early_close` | 32 | NYSE early-close days removed from the sample |
 | `previous_close_cross_instrument` | 60 | Prior close and current boundaries are from different `instrument_id` values |
 
 ## Included Return Summary

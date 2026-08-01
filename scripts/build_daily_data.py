@@ -452,7 +452,7 @@ def main() -> None:
     summary["executable_lh_entry_rule"] = "entry price uses ts_event == close_minus_30 theoretical boundary bar open"
 
     out_parquet = PROCESSED_ROOT / f"{prefix}_daily_research_table.parquet"
-    out_summary = MANIFEST_ROOT / f"{prefix}_daily_research_table_summary.json"
+    out_summary = MANIFEST_ROOT / f"{prefix}_daily_data_summary.json"
     out_parquet.parent.mkdir(parents=True, exist_ok=True)
     out_summary.parent.mkdir(parents=True, exist_ok=True)
     daily.to_parquet(out_parquet, index=False)

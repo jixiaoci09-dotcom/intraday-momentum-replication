@@ -1,4 +1,4 @@
-# GC.v.0 January 2024 OHLCV-1m Sample Manifest
+# GC.v.0 January 2024 OHLCV-1m Sample Notes
 
 ## Request
 
@@ -104,4 +104,4 @@ Selected comparisons:
 - Days with missing `P_{c-30,t}` or `P_{c,t}` must be excluded or explicitly
   flagged.
 - Public chart validation is insufficient for historical minute-boundary
-  validation; definitions, mappings, and direct data QA are required.
+  validation; definitions, mappings, and direct data checks are needed.

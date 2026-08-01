@@ -1,16 +1,15 @@
-# ES Daily Research Table Manifest
+# ES Daily Data Notes
 
-## Purpose
+## What This File Records
 
-This manifest documents the first ES daily research table built from local
-Databento `ES.v.0` `ohlcv-1m` downloads. The table implements the frozen
-baseline rules in `docs/es_daily_table_rules.md`.
+This file records the ES daily research table built from local
+Databento `ES.v.0` `ohlcv-1m` downloads. The table follows the data cleaning rules in `docs/es_daily_table_rules.md`.
 
 ## Local Output
 
 - Processed table: `data/processed/es_daily_research_table.parquet`
 - Git status: ignored by `.gitignore`; not committed
-- Git-tracked summary: `data/manifests/es_daily_research_table_summary.json`
+- GitHub summary file: `data/manifests/es_daily_data_summary.json`
 
 The processed table is derived from licensed Databento data and must not be
 uploaded to GitHub.
@@ -44,7 +43,7 @@ Date range: `2010-06-07` to `2025-12-31`.
 | `missing_boundary_on_regular_day` | 7 | NYSE regular-close days with missing required boundary bars |
 | `missing_previous_close` | 1 | First candidate date has no prior close |
 | `nyse_closed` | 85 | CME had relevant observations but NYSE was closed |
-| `nyse_early_close` | 32 | NYSE early-close days removed from the baseline |
+| `nyse_early_close` | 32 | NYSE early-close days removed from the sample |
 | `previous_close_cross_instrument` | 61 | Prior close and current boundaries are from different `instrument_id` values |
 
 ## Included Return Summary
@@ -62,9 +61,9 @@ separately in `reports/tables/`.
 
 ## Research Implications
 
-- The ES daily table is ready for baseline regression and strategy code.
+- The ES daily table is ready for the regression and strategy scripts.
 - Early closes and holidays are excluded by the missing-boundary rule.
 - Roll-sensitive days are excluded when prior and current prices cross
   `instrument_id`.
-- Future robustness checks can compare this conservative baseline against
+- Future robustness checks can compare this conservative sample against
   alternative roll handling.

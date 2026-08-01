@@ -1,4 +1,4 @@
-# ES.v.0 2010-2025 Download And Validation Manifest
+# ES.v.0 2010-2025 Download Notes
 
 ## Download Decision
 
@@ -18,10 +18,10 @@ Approved request total: `$19.1006`.
 | ES OOS definitions | `definition` | 2021-01-01 to 2026-01-01 | `$0.0009` | 0.58 MB | 60 | `3da5ca4ca4099d44c16da26406d443af1cb0e53a8448d5e9c176cfa80dec2f08` |
 
 Raw files are stored under `data/raw/databento/GLBX.MDP3/` and are ignored by
-Git. The validation notes below summarize the local checks that were run after
+Git. The data check notes below summarize the local checks that were run after
 download.
 
-## OHLCV Validation
+## OHLCV Data Check
 
 | Segment | Rows | UTC Start | UTC End | Instrument Count | Duplicate Timestamps |
 | --- | ---: | --- | --- | ---: | ---: |
@@ -38,7 +38,7 @@ Price and volume checks:
 The price scale and tick size are consistent with ES futures. Definitions show
 `min_price_increment = 0.25`.
 
-## Definitions Validation
+## Definitions Data Check
 
 | Segment | Rows | Raw Symbol Count | Instrument Count | Expiration Count |
 | --- | ---: | ---: | ---: | ---: |
@@ -51,7 +51,7 @@ Definitions include quarterly ES contracts such as `ESH`, `ESM`, `ESU`, and
 ## Paper Window Checks
 
 For ES, the paper's effective trading day follows the underlying U.S. equity
-market hours. The working validation window is:
+market hours. The working data-check window is:
 
 - Time zone: `America/New_York`
 - Window: `09:30-16:00`

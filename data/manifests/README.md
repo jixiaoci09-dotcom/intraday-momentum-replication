@@ -1,9 +1,9 @@
-# Data Manifests
+# Data Notes
 
-This directory stores metadata about local data files. It must not contain raw
+This directory stores notes about local data files. It must not contain raw
 or processed market data.
 
-Each manifest should include:
+Each note should include:
 
 - data vendor and dataset
 - schema
@@ -14,4 +14,4 @@ Each manifest should include:
 - local file path
 - file size
 - SHA-256 hash
-- validation notes
+- data check notes

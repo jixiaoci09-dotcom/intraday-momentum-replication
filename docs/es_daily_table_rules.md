@@ -33,7 +33,7 @@ A day is included only when:
 - The prior close and current boundaries share the same `instrument_id`.
 
 Days failing these rules are retained in the local daily table with exclusion
-reasons, but excluded from baseline regressions and strategies.
+reasons, but excluded from regressions and strategy tests.
 
 NYSE trading days and early closes are identified with
 `pandas-market-calendars` using the `NYSE` calendar. Early closes are excluded
@@ -64,7 +64,7 @@ Eq. (7): r_LH,t = alpha + beta_ROD * r_ROD,t + epsilon_t
 ## Outputs
 
 - Local processed table: `data/processed/es_daily_research_table.parquet`
-- Git-tracked summary: `data/manifests/es_daily_research_table_summary.json`
+- Git-tracked summary: `data/manifests/es_daily_data_summary.json`
 
 The processed table is ignored by Git because it is derived from licensed
 Databento data.

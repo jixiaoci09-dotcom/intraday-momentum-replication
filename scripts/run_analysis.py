@@ -64,7 +64,7 @@ def paths(prefix: str) -> dict[str, Path]:
         "oos_r2": REPORT_ROOT / f"{prefix}_core_oos_r2.csv",
         "strategy": REPORT_ROOT / f"{prefix}_core_strategy_summary.csv",
         "yearly": REPORT_ROOT / f"{prefix}_core_strategy_by_year.csv",
-        "manifest": MANIFEST_ROOT / f"{prefix}_core_replication_manifest.md",
+        "notes": MANIFEST_ROOT / f"{prefix}_analysis_notes.md",
     }
 
 
@@ -144,7 +144,7 @@ def regression_summary(df: pd.DataFrame, sample_name: str, spec_name: str, predi
     model, hac, maxlags = fit_hac(model_df["r_LH"], model_df[predictors])
     params, bse, tvalues, pvalues, conf = robust_parts(model, hac)
     row = {
-        "pipeline_version": PIPELINE_VERSION,
+        "data_version": PIPELINE_VERSION,
         "sample": sample_name,
         "sample_scope": "equation_available",
         "spec": spec_name,
@@ -512,7 +512,7 @@ def main() -> None:
         "beta_difference_test": "pooled regression with OOS dummy and predictor-by-OOS interactions",
         "oos_r2": {
             "expanding": "Each OOS prediction day re-estimates using strict replication sample plus prior OOS observations; benchmark mean also updates through t-1.",
-            "frozen_2020": "Estimate once using strict replication sample through 2020-05-01; benchmark mean fixed through OOS.",
+            "fixed_sample": "Estimate once using strict replication sample through 2020-05-01; benchmark mean fixed through OOS.",
         },
         "annualization_days": ANNUALIZATION_DAYS,
         "tick_size": tick_size,
@@ -526,7 +526,7 @@ def main() -> None:
         "samples": manifest_samples,
         "outputs": {key: str(value) for key, value in output_paths.items() if key != "daily"},
     }
-    output_paths["manifest"].write_text(
+    output_paths["notes"].write_text(
         f"# {args.symbol} Analysis Notes\n\n"
         "This file records the inputs, model choices, and output files for this symbol's analysis.\n\n"
         "```json\n"
