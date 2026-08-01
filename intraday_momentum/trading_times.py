@@ -1,12 +1,3 @@
-"""Boundary-clock helpers for Databento OHLCV-1m bars.
-
-Databento OHLCV-1m ``ts_event`` identifies the start of the one-minute bar.
-Therefore a theoretical boundary price at time T is the close of the bar whose
-``ts_event`` is T minus one minute. Session open is the exception: when the open
-price is needed, it is the open of the bar whose ``ts_event`` equals the session
-open.
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
