@@ -1,0 +1,48 @@
+{
+  "rows_total": 3853,
+  "rows_included": 3667,
+  "rows_excluded": 186,
+  "nyse_trading_days": 3768,
+  "nyse_regular_close_days": 3736,
+  "included_by_segment": {
+    "oos": 1224,
+    "replication": 2443
+  },
+  "excluded_by_reason": {
+    "missing_boundary_on_regular_day": 7,
+    "missing_previous_close": 1,
+    "nyse_closed": 85,
+    "nyse_early_close": 32,
+    "previous_close_cross_instrument": 61
+  },
+  "excluded_by_nyse_close_clock": {
+    "": 85,
+    "13:00": 32,
+    "16:00": 69
+  },
+  "date_min": "2010-06-07",
+  "date_max": "2025-12-31",
+  "return_summary_included": {
+    "r_ONFH": {
+      "count": 3667,
+      "mean": 0.00028044971282513204,
+      "std": 0.007217286822571353,
+      "min": -0.09066443949517444,
+      "max": 0.0643480231109097
+    },
+    "r_ROD": {
+      "count": 3667,
+      "mean": 0.0005321065483518272,
+      "std": 0.010066006328559059,
+      "min": -0.0935412026726058,
+      "max": 0.09346323779313459
+    },
+    "r_LH": {
+      "count": 3667,
+      "mean": -1.7313831463620402e-05,
+      "std": 0.0027512722956577734,
+      "min": -0.02683046683046686,
+      "max": 0.043781480046493515
+    }
+  }
+}

@@ -76,6 +76,19 @@ Initial ES validation found:
   boundaries, primarily holidays and early closes that must be excluded or
   flagged.
 
+## ES Daily Research Table
+
+The baseline ES daily table rules are frozen in
+`docs/es_daily_table_rules.md`. The generated local table is stored at
+`data/processed/es_daily_research_table.parquet` and is ignored by Git because
+it is derived from licensed data.
+
+The Git-tracked manifest is
+`data/manifests/es_daily_research_table_manifest.md`. The initial build created
+3,853 candidate dates and included 3,667 dates after excluding NYSE closed
+days, early closes, missing-boundary observations, and cross-instrument
+observations.
+
 ## Data Policy
 
 Do not commit licensed Databento market data, API keys, billing information,
