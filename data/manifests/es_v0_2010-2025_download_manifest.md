@@ -18,8 +18,8 @@ Approved request total: `$19.1006`.
 | ES OOS definitions | `definition` | 2021-01-01 to 2026-01-01 | `$0.0009` | 0.58 MB | 60 | `3da5ca4ca4099d44c16da26406d443af1cb0e53a8448d5e9c176cfa80dec2f08` |
 
 Raw files are stored under `data/raw/databento/GLBX.MDP3/` and are ignored by
-Git. The machine-readable validation summary is stored in
-`data/manifests/es_v0_2010-2025_validation_summary.json`.
+Git. The validation notes below summarize the local checks that were run after
+download.
 
 ## OHLCV Validation
 

@@ -6,11 +6,6 @@ outputs/
 data/raw/
 data/interim/
 data/processed/
-reports/archive/invalid_boundary_v0/tables/
-reports/audit/boundary_raw_rows_*.csv
-reports/audit/boundary_raw_rows_*.md
-reports/audit/extreme_returns_review.csv
-reports/audit/extreme_returns_review.md
 *.dbn
 *.dbn.zst
 *.parquet

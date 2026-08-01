@@ -62,7 +62,6 @@ This replication uses the frozen cleaned daily table rules for the symbol and th
     "regression": "reports/tables/es_core_regression_summary.csv",
     "beta_diff": "reports/tables/es_core_beta_difference_tests.csv",
     "oos_r2": "reports/tables/es_core_oos_r2.csv",
-    "oos_predictions": "reports/tables/es_core_oos_predictions.csv",
     "strategy": "reports/tables/es_core_strategy_summary.csv",
     "yearly": "reports/tables/es_core_strategy_by_year.csv",
     "manifest": "data/manifests/es_core_replication_manifest.md"
