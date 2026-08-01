@@ -1,0 +1,1163 @@
+{
+  "symbol": "ES.v.0",
+  "dataset": "GLBX.MDP3",
+  "source": "Databento",
+  "note": "Aggregate validation only; raw licensed data remains in data/raw/ and is ignored by Git.",
+  "packages": [
+    {
+      "label": "es_replication_ohlcv_1m",
+      "schema": "ohlcv-1m",
+      "period": "2010-06-06 to 2020-06-01",
+      "approved_cost_usd": 12.6435,
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/ES.v.0/replication_2010-06-06_2020-06-01/GLBX-20260801-WUUC3MXJMU/GLBX-20260801-WUUC3MXJMU.zip",
+      "size_bytes": 45160016,
+      "size_mb": 43.07,
+      "sha256": "7503bef4bcca4347e51541190e6a7372e2bb0b8baff7b6bcd53f3e98b9b88273",
+      "zip_file_count": 123,
+      "dbn_zst_count": 120,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20100606-20100630.ohlcv-1m.dbn.zst",
+      "last_dbn": "glbx-mdp3-20200501-20200531.ohlcv-1m.dbn.zst",
+      "validation": {
+        "rows": 3463223,
+        "utc_start": "2010-06-07 00:00:00+00:00",
+        "utc_end": "2020-05-31 23:59:00+00:00",
+        "duplicate_timestamps": 0,
+        "instrument_counts": {
+          "736": 93819,
+          "2615": 87664,
+          "2928": 89202,
+          "3076": 88324,
+          "3366": 94752,
+          "6505": 86889,
+          "6640": 6874,
+          "8347": 83510,
+          "9006": 86119,
+          "10113": 86521,
+          "10571": 86749,
+          "11561": 91466,
+          "13950": 88028,
+          "16114": 87689,
+          "16145": 88163,
+          "17704": 85661,
+          "18720": 78344,
+          "21168": 87701,
+          "21336": 70410,
+          "23252": 86950,
+          "23936": 87115,
+          "23970": 76277,
+          "24842": 86983,
+          "26714": 88188,
+          "27069": 86821,
+          "28095": 83173,
+          "28112": 86895,
+          "31747": 85888,
+          "35903": 83315,
+          "37699": 87938,
+          "45580": 89215,
+          "49278": 88725,
+          "49705": 85222,
+          "50393": 83568,
+          "57287": 91902,
+          "58738": 88391,
+          "70248": 86323,
+          "75884": 87279,
+          "85974": 87280,
+          "111473": 86390,
+          "382206": 81500
+        },
+        "mapping_interval_count": 160,
+        "mapping_intervals_sample": [
+          {
+            "start_date": "2010-06-06",
+            "end_date": "2010-06-14",
+            "instrument_id": "6640"
+          },
+          {
+            "start_date": "2010-06-14",
+            "end_date": "2010-07-01",
+            "instrument_id": "26714"
+          },
+          {
+            "start_date": "2010-07-01",
+            "end_date": "2010-08-01",
+            "instrument_id": "26714"
+          },
+          {
+            "start_date": "2010-08-01",
+            "end_date": "2010-09-01",
+            "instrument_id": "26714"
+          },
+          {
+            "start_date": "2010-09-01",
+            "end_date": "2010-09-13",
+            "instrument_id": "26714"
+          },
+          {
+            "start_date": "2010-09-13",
+            "end_date": "2010-10-01",
+            "instrument_id": "3076"
+          },
+          {
+            "start_date": "2010-10-01",
+            "end_date": "2010-11-01",
+            "instrument_id": "3076"
+          },
+          {
+            "start_date": "2010-11-01",
+            "end_date": "2010-12-01",
+            "instrument_id": "3076"
+          },
+          {
+            "start_date": "2010-12-01",
+            "end_date": "2010-12-13",
+            "instrument_id": "3076"
+          },
+          {
+            "start_date": "2010-12-13",
+            "end_date": "2011-01-01",
+            "instrument_id": "70248"
+          },
+          {
+            "start_date": "2011-01-01",
+            "end_date": "2011-02-01",
+            "instrument_id": "70248"
+          },
+          {
+            "start_date": "2011-02-01",
+            "end_date": "2011-03-01",
+            "instrument_id": "70248"
+          },
+          {
+            "start_date": "2011-03-01",
+            "end_date": "2011-03-14",
+            "instrument_id": "70248"
+          },
+          {
+            "start_date": "2011-03-14",
+            "end_date": "2011-04-01",
+            "instrument_id": "75884"
+          },
+          {
+            "start_date": "2011-04-01",
+            "end_date": "2011-05-01",
+            "instrument_id": "75884"
+          },
+          {
+            "start_date": "2011-05-01",
+            "end_date": "2011-06-01",
+            "instrument_id": "75884"
+          },
+          {
+            "start_date": "2011-06-01",
+            "end_date": "2011-06-13",
+            "instrument_id": "75884"
+          },
+          {
+            "start_date": "2011-06-13",
+            "end_date": "2011-07-01",
+            "instrument_id": "49278"
+          },
+          {
+            "start_date": "2011-07-01",
+            "end_date": "2011-08-01",
+            "instrument_id": "49278"
+          },
+          {
+            "start_date": "2011-08-01",
+            "end_date": "2011-09-01",
+            "instrument_id": "49278"
+          },
+          {
+            "start_date": "2011-09-01",
+            "end_date": "2011-09-12",
+            "instrument_id": "49278"
+          },
+          {
+            "start_date": "2011-09-12",
+            "end_date": "2011-10-01",
+            "instrument_id": "45580"
+          },
+          {
+            "start_date": "2011-10-01",
+            "end_date": "2011-11-01",
+            "instrument_id": "45580"
+          },
+          {
+            "start_date": "2011-11-01",
+            "end_date": "2011-12-01",
+            "instrument_id": "45580"
+          },
+          {
+            "start_date": "2011-12-01",
+            "end_date": "2011-12-12",
+            "instrument_id": "45580"
+          },
+          {
+            "start_date": "2011-12-12",
+            "end_date": "2012-01-01",
+            "instrument_id": "31747"
+          },
+          {
+            "start_date": "2012-01-01",
+            "end_date": "2012-02-01",
+            "instrument_id": "31747"
+          },
+          {
+            "start_date": "2012-02-01",
+            "end_date": "2012-03-01",
+            "instrument_id": "31747"
+          },
+          {
+            "start_date": "2012-03-01",
+            "end_date": "2012-03-13",
+            "instrument_id": "31747"
+          },
+          {
+            "start_date": "2012-03-13",
+            "end_date": "2012-04-01",
+            "instrument_id": "27069"
+          }
+        ],
+        "price_stats": {
+          "open": {
+            "min": 1004.0,
+            "max": 3397.0,
+            "zeros": 0,
+            "missing": 0
+          },
+          "high": {
+            "min": 1004.25,
+            "max": 3397.5,
+            "zeros": 0,
+            "missing": 0
+          },
+          "low": {
+            "min": 1002.75,
+            "max": 3396.25,
+            "zeros": 0,
+            "missing": 0
+          },
+          "close": {
+            "min": 1003.75,
+            "max": 3397.0,
+            "zeros": 0,
+            "missing": 0
+          }
+        },
+        "volume_stats": {
+          "min": 1,
+          "max": 192341,
+          "zeros": 0,
+          "missing": 0
+        },
+        "paper_window": {
+          "timezone": "America/New_York",
+          "window": "09:30-16:00",
+          "required_boundaries": [
+            "09:30",
+            "10:00",
+            "15:30",
+            "16:00"
+          ],
+          "days_checked": 2558,
+          "days_missing_any_boundary": 74,
+          "days_missing_1530": 74,
+          "days_missing_1600": 74,
+          "days_missing_any_minute": 78,
+          "max_missing_minutes": 302,
+          "example_problem_days": [
+            {
+              "ny_date": "2010-07-05",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                26714
+              ]
+            },
+            {
+              "ny_date": "2010-09-06",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                26714
+              ]
+            },
+            {
+              "ny_date": "2010-11-25",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3076
+              ]
+            },
+            {
+              "ny_date": "2010-11-26",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3076
+              ]
+            },
+            {
+              "ny_date": "2011-01-17",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                70248
+              ]
+            },
+            {
+              "ny_date": "2011-02-21",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                70248
+              ]
+            },
+            {
+              "ny_date": "2011-05-30",
+              "rows_0930_1600": 116,
+              "missing_minutes": 275,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                75884
+              ]
+            },
+            {
+              "ny_date": "2011-07-04",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                49278
+              ]
+            },
+            {
+              "ny_date": "2011-09-05",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                49278
+              ]
+            },
+            {
+              "ny_date": "2011-11-24",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                45580
+              ]
+            },
+            {
+              "ny_date": "2011-11-25",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                45580
+              ]
+            },
+            {
+              "ny_date": "2012-01-16",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                31747
+              ]
+            },
+            {
+              "ny_date": "2012-02-20",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                31747
+              ]
+            },
+            {
+              "ny_date": "2012-05-28",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                27069
+              ]
+            },
+            {
+              "ny_date": "2012-07-03",
+              "rows_0930_1600": 226,
+              "missing_minutes": 165,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3366
+              ]
+            },
+            {
+              "ny_date": "2012-07-04",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3366
+              ]
+            },
+            {
+              "ny_date": "2012-09-03",
+              "rows_0930_1600": 120,
+              "missing_minutes": 271,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3366
+              ]
+            },
+            {
+              "ny_date": "2012-11-23",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                10113
+              ]
+            },
+            {
+              "ny_date": "2012-12-24",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                23970
+              ]
+            },
+            {
+              "ny_date": "2013-07-03",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                17704
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "es_oos_ohlcv_1m",
+      "schema": "ohlcv-1m",
+      "period": "2021-01-01 to 2026-01-01",
+      "approved_cost_usd": 6.4545,
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/ES.v.0/oos_2021-01-01_2026-01-01/GLBX-20260801-Y3RT94RWU9/GLBX-20260801-Y3RT94RWU9.zip",
+      "size_bytes": 27050283,
+      "size_mb": 25.8,
+      "sha256": "5859ea6fa94caa34b3899bb09aa5a45699e79202ea132b1a495c5485e1f850ba",
+      "zip_file_count": 63,
+      "dbn_zst_count": 60,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20210101-20210131.ohlcv-1m.dbn.zst",
+      "last_dbn": "glbx-mdp3-20251201-20251231.ohlcv-1m.dbn.zst",
+      "validation": {
+        "rows": 1767973,
+        "utc_start": "2021-01-03 23:00:00+00:00",
+        "utc_end": "2025-12-31 21:59:00+00:00",
+        "duplicate_timestamps": 0,
+        "instrument_counts": {
+          "118": 88681,
+          "1030": 89041,
+          "3403": 90837,
+          "3445": 88628,
+          "3853": 87995,
+          "4916": 88078,
+          "5002": 85834,
+          "5482": 67915,
+          "5602": 94897,
+          "5782": 87893,
+          "8858": 89159,
+          "14160": 88728,
+          "17077": 86433,
+          "95414": 88933,
+          "97042": 88974,
+          "183748": 89139,
+          "206299": 86512,
+          "206323": 89169,
+          "294973": 88516,
+          "314863": 89099,
+          "42140878": 13512
+        },
+        "mapping_interval_count": 80,
+        "mapping_intervals_sample": [
+          {
+            "start_date": "2021-01-01",
+            "end_date": "2021-02-01",
+            "instrument_id": "5482"
+          },
+          {
+            "start_date": "2021-02-01",
+            "end_date": "2021-03-01",
+            "instrument_id": "5482"
+          },
+          {
+            "start_date": "2021-03-01",
+            "end_date": "2021-03-15",
+            "instrument_id": "5482"
+          },
+          {
+            "start_date": "2021-03-15",
+            "end_date": "2021-04-01",
+            "instrument_id": "3853"
+          },
+          {
+            "start_date": "2021-04-01",
+            "end_date": "2021-05-01",
+            "instrument_id": "3853"
+          },
+          {
+            "start_date": "2021-05-01",
+            "end_date": "2021-06-01",
+            "instrument_id": "3853"
+          },
+          {
+            "start_date": "2021-06-01",
+            "end_date": "2021-06-14",
+            "instrument_id": "3853"
+          },
+          {
+            "start_date": "2021-06-14",
+            "end_date": "2021-07-01",
+            "instrument_id": "1030"
+          },
+          {
+            "start_date": "2021-07-01",
+            "end_date": "2021-08-01",
+            "instrument_id": "1030"
+          },
+          {
+            "start_date": "2021-08-01",
+            "end_date": "2021-09-01",
+            "instrument_id": "1030"
+          },
+          {
+            "start_date": "2021-09-01",
+            "end_date": "2021-09-13",
+            "instrument_id": "1030"
+          },
+          {
+            "start_date": "2021-09-13",
+            "end_date": "2021-10-01",
+            "instrument_id": "8858"
+          },
+          {
+            "start_date": "2021-10-01",
+            "end_date": "2021-11-01",
+            "instrument_id": "8858"
+          },
+          {
+            "start_date": "2021-11-01",
+            "end_date": "2021-12-01",
+            "instrument_id": "8858"
+          },
+          {
+            "start_date": "2021-12-01",
+            "end_date": "2021-12-13",
+            "instrument_id": "8858"
+          },
+          {
+            "start_date": "2021-12-13",
+            "end_date": "2022-01-01",
+            "instrument_id": "5782"
+          },
+          {
+            "start_date": "2022-01-01",
+            "end_date": "2022-02-01",
+            "instrument_id": "5782"
+          },
+          {
+            "start_date": "2022-02-01",
+            "end_date": "2022-03-01",
+            "instrument_id": "5782"
+          },
+          {
+            "start_date": "2022-03-01",
+            "end_date": "2022-03-14",
+            "instrument_id": "5782"
+          },
+          {
+            "start_date": "2022-03-14",
+            "end_date": "2022-04-01",
+            "instrument_id": "3403"
+          },
+          {
+            "start_date": "2022-04-01",
+            "end_date": "2022-05-01",
+            "instrument_id": "3403"
+          },
+          {
+            "start_date": "2022-05-01",
+            "end_date": "2022-06-01",
+            "instrument_id": "3403"
+          },
+          {
+            "start_date": "2022-06-01",
+            "end_date": "2022-06-15",
+            "instrument_id": "3403"
+          },
+          {
+            "start_date": "2022-06-15",
+            "end_date": "2022-07-01",
+            "instrument_id": "97042"
+          },
+          {
+            "start_date": "2022-07-01",
+            "end_date": "2022-08-01",
+            "instrument_id": "97042"
+          },
+          {
+            "start_date": "2022-08-01",
+            "end_date": "2022-09-01",
+            "instrument_id": "97042"
+          },
+          {
+            "start_date": "2022-09-01",
+            "end_date": "2022-09-14",
+            "instrument_id": "97042"
+          },
+          {
+            "start_date": "2022-09-14",
+            "end_date": "2022-10-01",
+            "instrument_id": "206323"
+          },
+          {
+            "start_date": "2022-10-01",
+            "end_date": "2022-11-01",
+            "instrument_id": "206323"
+          },
+          {
+            "start_date": "2022-11-01",
+            "end_date": "2022-12-01",
+            "instrument_id": "206323"
+          }
+        ],
+        "price_stats": {
+          "open": {
+            "min": 3503.5,
+            "max": 6992.75,
+            "zeros": 0,
+            "missing": 0
+          },
+          "high": {
+            "min": 3507.5,
+            "max": 6994.0,
+            "zeros": 0,
+            "missing": 0
+          },
+          "low": {
+            "min": 3502.0,
+            "max": 6992.0,
+            "zeros": 0,
+            "missing": 0
+          },
+          "close": {
+            "min": 3503.5,
+            "max": 6992.75,
+            "zeros": 0,
+            "missing": 0
+          }
+        },
+        "volume_stats": {
+          "min": 1,
+          "max": 185625,
+          "zeros": 0,
+          "missing": 0
+        },
+        "paper_window": {
+          "timezone": "America/New_York",
+          "window": "09:30-16:00",
+          "required_boundaries": [
+            "09:30",
+            "10:00",
+            "15:30",
+            "16:00"
+          ],
+          "days_checked": 1289,
+          "days_missing_any_boundary": 44,
+          "days_missing_1530": 44,
+          "days_missing_1600": 44,
+          "days_missing_any_minute": 44,
+          "max_missing_minutes": 182,
+          "example_problem_days": [
+            {
+              "ny_date": "2021-01-18",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                5482
+              ]
+            },
+            {
+              "ny_date": "2021-02-15",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                5482
+              ]
+            },
+            {
+              "ny_date": "2021-05-31",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3853
+              ]
+            },
+            {
+              "ny_date": "2021-07-05",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                1030
+              ]
+            },
+            {
+              "ny_date": "2021-09-06",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                1030
+              ]
+            },
+            {
+              "ny_date": "2021-11-25",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                8858
+              ]
+            },
+            {
+              "ny_date": "2021-11-26",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                8858
+              ]
+            },
+            {
+              "ny_date": "2022-01-17",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                5782
+              ]
+            },
+            {
+              "ny_date": "2022-02-21",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                5782
+              ]
+            },
+            {
+              "ny_date": "2022-05-30",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3403
+              ]
+            },
+            {
+              "ny_date": "2022-06-20",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                97042
+              ]
+            },
+            {
+              "ny_date": "2022-07-04",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                97042
+              ]
+            },
+            {
+              "ny_date": "2022-09-05",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                97042
+              ]
+            },
+            {
+              "ny_date": "2022-11-24",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                206323
+              ]
+            },
+            {
+              "ny_date": "2022-11-25",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                206323
+              ]
+            },
+            {
+              "ny_date": "2023-01-16",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                206299
+              ]
+            },
+            {
+              "ny_date": "2023-02-20",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                206299
+              ]
+            },
+            {
+              "ny_date": "2023-05-29",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                95414
+              ]
+            },
+            {
+              "ny_date": "2023-06-19",
+              "rows_0930_1600": 210,
+              "missing_minutes": 181,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3445
+              ]
+            },
+            {
+              "ny_date": "2023-07-03",
+              "rows_0930_1600": 225,
+              "missing_minutes": 166,
+              "missing_boundaries": [
+                "15:30",
+                "16:00"
+              ],
+              "instrument_ids": [
+                3445
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "label": "es_replication_definitions",
+      "schema": "definition",
+      "period": "2010-06-06 to 2020-06-01",
+      "approved_cost_usd": 0.0018,
+      "path": "data/raw/databento/GLBX.MDP3/definition/ES.v.0/replication_2010-06-06_2020-06-01/GLBX-20260801-69VSGFPH8M/GLBX-20260801-69VSGFPH8M.zip",
+      "size_bytes": 1188845,
+      "size_mb": 1.13,
+      "sha256": "6f71d3ca9eb1e0ed9ac0d037efdbcabdf072880b28025e701131e3dae11eedf3",
+      "zip_file_count": 123,
+      "dbn_zst_count": 120,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20100606-20100630.definition.dbn.zst",
+      "last_dbn": "glbx-mdp3-20200501-20200531.definition.dbn.zst",
+      "validation": {
+        "rows": 3131,
+        "utc_start": "2010-06-06 00:00:00+00:00",
+        "utc_end": "2020-05-31 16:09:52.725250013+00:00",
+        "instrument_count": 41,
+        "raw_symbol_count": 40,
+        "raw_symbols_sample": [
+          "ESH0",
+          "ESH1",
+          "ESH2",
+          "ESH3",
+          "ESH4",
+          "ESH5",
+          "ESH6",
+          "ESH7",
+          "ESH8",
+          "ESH9",
+          "ESM0",
+          "ESM1",
+          "ESM2",
+          "ESM3",
+          "ESM4",
+          "ESM5",
+          "ESM6",
+          "ESM7",
+          "ESM8",
+          "ESM9",
+          "ESU0",
+          "ESU1",
+          "ESU2",
+          "ESU3",
+          "ESU4",
+          "ESU5",
+          "ESU6",
+          "ESU7",
+          "ESU8",
+          "ESU9",
+          "ESZ0",
+          "ESZ1",
+          "ESZ2",
+          "ESZ3",
+          "ESZ4",
+          "ESZ5",
+          "ESZ6",
+          "ESZ7",
+          "ESZ8",
+          "ESZ9"
+        ],
+        "expiration_count": 41,
+        "expiration_sample": [
+          "2010-06-18 13:30:00+00:00",
+          "2010-09-17 13:30:00+00:00",
+          "2010-12-17 14:30:00+00:00",
+          "2011-03-18 13:30:00+00:00",
+          "2011-06-17 13:30:00+00:00",
+          "2011-09-16 13:30:00+00:00",
+          "2011-12-16 14:30:00+00:00",
+          "2012-03-16 13:30:00+00:00",
+          "2012-06-15 13:30:00+00:00",
+          "2012-09-21 13:30:00+00:00",
+          "2012-12-21 14:30:00+00:00",
+          "2013-03-15 13:30:00+00:00",
+          "2013-06-21 13:30:00+00:00",
+          "2013-09-20 13:30:00+00:00",
+          "2013-12-20 14:30:00+00:00",
+          "2014-03-21 13:30:00+00:00",
+          "2014-06-20 13:30:00+00:00",
+          "2014-09-19 13:30:00+00:00",
+          "2014-12-19 14:30:00+00:00",
+          "2015-03-20 13:30:00+00:00"
+        ],
+        "min_price_increment_values": [
+          "0.25"
+        ]
+      }
+    },
+    {
+      "label": "es_oos_definitions",
+      "schema": "definition",
+      "period": "2021-01-01 to 2026-01-01",
+      "approved_cost_usd": 0.0009,
+      "path": "data/raw/databento/GLBX.MDP3/definition/ES.v.0/oos_2021-01-01_2026-01-01/GLBX-20260801-95HE5NE3TK/GLBX-20260801-95HE5NE3TK.zip",
+      "size_bytes": 606211,
+      "size_mb": 0.58,
+      "sha256": "3da5ca4ca4099d44c16da26406d443af1cb0e53a8448d5e9c176cfa80dec2f08",
+      "zip_file_count": 63,
+      "dbn_zst_count": 60,
+      "json_count": 3,
+      "first_dbn": "glbx-mdp3-20210101-20210131.definition.dbn.zst",
+      "last_dbn": "glbx-mdp3-20251201-20251231.definition.dbn.zst",
+      "validation": {
+        "rows": 1569,
+        "utc_start": "2020-12-27 17:05:15.926494829+00:00",
+        "utc_end": "2025-12-28 12:51:36.285600945+00:00",
+        "instrument_count": 21,
+        "raw_symbol_count": 21,
+        "raw_symbols_sample": [
+          "ESH1",
+          "ESH2",
+          "ESH3",
+          "ESH4",
+          "ESH5",
+          "ESH6",
+          "ESM1",
+          "ESM2",
+          "ESM3",
+          "ESM4",
+          "ESM5",
+          "ESU1",
+          "ESU2",
+          "ESU3",
+          "ESU4",
+          "ESU5",
+          "ESZ1",
+          "ESZ2",
+          "ESZ3",
+          "ESZ4",
+          "ESZ5"
+        ],
+        "expiration_count": 21,
+        "expiration_sample": [
+          "2021-03-19 13:30:00+00:00",
+          "2021-06-18 13:30:00+00:00",
+          "2021-09-17 13:30:00+00:00",
+          "2021-12-17 14:30:00+00:00",
+          "2022-03-18 13:30:00+00:00",
+          "2022-06-17 13:30:00+00:00",
+          "2022-09-16 13:30:00+00:00",
+          "2022-12-16 14:30:00+00:00",
+          "2023-03-17 13:30:00+00:00",
+          "2023-06-16 13:30:00+00:00",
+          "2023-09-15 13:30:00+00:00",
+          "2023-12-15 14:30:00+00:00",
+          "2024-03-15 13:30:00+00:00",
+          "2024-06-21 13:30:00+00:00",
+          "2024-09-20 13:30:00+00:00",
+          "2024-12-20 14:30:00+00:00",
+          "2025-03-21 13:30:00+00:00",
+          "2025-06-20 13:30:00+00:00",
+          "2025-09-19 13:30:00+00:00",
+          "2025-12-19 14:30:00+00:00"
+        ],
+        "min_price_increment_values": [
+          "0.25"
+        ]
+      }
+    }
+  ]
+}

@@ -54,6 +54,28 @@ missing minutes in the paper window and is missing the `08:20` and `13:00`
 boundary bars. This date should be excluded or flagged in research-table
 construction.
 
+## ES Data Acquisition
+
+The project purchased ES before the remaining five symbols to validate the full
+pipeline at lower cost. The approved Databento total was `$19.1006`, covering:
+
+- ES `ohlcv-1m`, 2010-06-06 to 2020-06-01.
+- ES `ohlcv-1m`, 2021-01-01 to 2026-01-01.
+- ES `definition` data for both periods.
+
+The raw files remain local under `data/raw/` and are ignored by Git. The
+download and validation manifest is stored in
+`data/manifests/es_v0_2010-2025_download_manifest.md`.
+
+Initial ES validation found:
+
+- 3,463,223 replication OHLCV rows and 1,767,973 OOS OHLCV rows.
+- Zero duplicate timestamps and no missing/zero prices.
+- `min_price_increment = 0.25` in definitions.
+- 74 replication-window and 44 OOS-window dates missing key `09:30-16:00`
+  boundaries, primarily holidays and early closes that must be excluded or
+  flagged.
+
 ## Data Policy
 
 Do not commit licensed Databento market data, API keys, billing information,
