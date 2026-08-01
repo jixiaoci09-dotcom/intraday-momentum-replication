@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run paper Eq. (5)-(7) and Eq. (12) for one cleaned daily symbol table."""
+"""Run the main regression and strategy analysis for one futures symbol."""
 
 from __future__ import annotations
 
@@ -62,7 +62,6 @@ def paths(prefix: str) -> dict[str, Path]:
         "regression": REPORT_ROOT / f"{prefix}_core_regression_summary.csv",
         "beta_diff": REPORT_ROOT / f"{prefix}_core_beta_difference_tests.csv",
         "oos_r2": REPORT_ROOT / f"{prefix}_core_oos_r2.csv",
-        "oos_predictions": REPORT_ROOT / f"{prefix}_core_oos_predictions.csv",
         "strategy": REPORT_ROOT / f"{prefix}_core_strategy_summary.csv",
         "yearly": REPORT_ROOT / f"{prefix}_core_strategy_by_year.csv",
         "manifest": MANIFEST_ROOT / f"{prefix}_core_replication_manifest.md",
@@ -238,7 +237,7 @@ def annualized_sharpe(returns: pd.Series) -> float:
     return float((returns.mean() * ANNUALIZATION_DAYS) / (vol_daily * np.sqrt(ANNUALIZATION_DAYS)))
 
 
-def forecast_oos_predictions(
+def forecast_oos_rows(
     df: pd.DataFrame,
     spec_name: str,
     predictors: list[str],
@@ -307,7 +306,7 @@ def oos_r2_outputs(df: pd.DataFrame) -> tuple[list[dict[str, Any]], pd.DataFrame
     prediction_frames = []
     for spec_name, predictors in REGRESSION_SPECS.items():
         for method in ["expanding", "frozen_2020"]:
-            predictions = forecast_oos_predictions(df, spec_name, predictors, method)
+            predictions = forecast_oos_rows(df, spec_name, predictors, method)
             prediction_frames.append(predictions)
             mspe_model = float(predictions["squared_error_model"].mean())
             mspe_benchmark = float(predictions["squared_error_benchmark"].mean())
@@ -490,14 +489,13 @@ def main() -> None:
         }
 
     beta_diff_rows = beta_difference_tests(df)
-    r2_oos_rows, oos_prediction_rows = oos_r2_outputs(df)
+    r2_oos_rows, _ = oos_r2_outputs(df)
 
     REPORT_ROOT.mkdir(parents=True, exist_ok=True)
     MANIFEST_ROOT.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(regression_rows).to_csv(output_paths["regression"], index=False)
     pd.DataFrame(beta_diff_rows).to_csv(output_paths["beta_diff"], index=False)
     pd.DataFrame(r2_oos_rows).to_csv(output_paths["oos_r2"], index=False)
-    oos_prediction_rows.to_csv(output_paths["oos_predictions"], index=False)
     pd.DataFrame(strategy_rows).to_csv(output_paths["strategy"], index=False)
     pd.DataFrame(yearly_rows).to_csv(output_paths["yearly"], index=False)
 
@@ -529,9 +527,8 @@ def main() -> None:
         "outputs": {key: str(value) for key, value in output_paths.items() if key != "daily"},
     }
     output_paths["manifest"].write_text(
-        f"# {args.symbol} Core Replication Manifest\n\n"
-        "This replication uses the frozen cleaned daily table rules for the symbol and "
-        "the paper's Table 2 Eq. (5)-(7) and Table 6 Eq. (12) logic.\n\n"
+        f"# {args.symbol} Analysis Notes\n\n"
+        "This file records the inputs, model choices, and output files for this symbol's analysis.\n\n"
         "```json\n"
         + json.dumps(manifest, indent=2)
         + "\n```\n",
@@ -544,8 +541,6 @@ def main() -> None:
     print(pd.DataFrame(beta_diff_rows).to_string(index=False))
     print()
     print(pd.DataFrame(r2_oos_rows).to_string(index=False))
-    print()
-    print(oos_prediction_rows.head().to_string(index=False))
     print()
     print(pd.DataFrame(strategy_rows).to_string(index=False))
 

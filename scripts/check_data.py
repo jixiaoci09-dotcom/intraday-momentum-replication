@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate local Databento batch downloads for one continuous futures symbol."""
+"""Check local Databento downloads for one continuous futures symbol."""
 
 from __future__ import annotations
 
@@ -308,7 +308,7 @@ def summarize_package(
 def write_markdown_manifest(symbol: str, summary: dict[str, Any], path: Path) -> None:
     total_cost = sum(package["approved_cost_usd"] for package in summary["packages"])
     rows = [
-        f"# {symbol} 2010-2025 Download And Validation Manifest",
+        f"# {symbol} 2010-2025 Download Notes",
         "",
         "Raw licensed Databento files remain local under `data/raw/` and are ignored by Git.",
         "",
@@ -335,7 +335,7 @@ def write_markdown_manifest(symbol: str, summary: dict[str, Any], path: Path) ->
     rows.extend(
         [
             "",
-            "## Validation Summary",
+            "## Data Check Summary",
             "",
         ]
     )
@@ -377,7 +377,7 @@ def main() -> None:
         "symbol": args.symbol,
         "dataset": DATASET,
         "source": "Databento",
-        "note": "Aggregate validation only; raw licensed data remains in data/raw/ and is ignored by Git.",
+        "note": "Summary checks only; raw licensed data remains in data/raw/ and is ignored by Git.",
         "packages": [
             summarize_package(package, args.window_start, args.window_end, required_boundaries)
             for package in packages
@@ -385,14 +385,11 @@ def main() -> None:
     }
 
     safe_symbol = args.symbol.replace(".", "_").replace("/", "_")
-    json_out = MANIFEST_DIR / f"{safe_symbol.lower()}_2010-2025_validation_summary.json"
     md_out = MANIFEST_DIR / f"{safe_symbol.lower()}_2010-2025_download_manifest.md"
     MANIFEST_DIR.mkdir(parents=True, exist_ok=True)
-    json_out.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     write_markdown_manifest(args.symbol, summary, md_out)
 
-    print(f"{args.symbol} validation complete")
-    print(f"summary: {json_out}")
+    print(f"{args.symbol} data check complete")
     print(f"manifest: {md_out}")
     for package in summary["packages"]:
         validation = package["validation"]
