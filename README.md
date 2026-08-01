@@ -33,6 +33,7 @@ scripts/
 reports/
   final_baseline_summary_zh.md      # 中文结果总结
   final_baseline_summary_en.md      # 英文结果总结
+  detailed_results_zh.md            # 更完整的结果附录
   tables/                           # 回归、样本外和策略结果表
 
 data/
@@ -92,6 +93,7 @@ ES、NQ 和 GC 的结果变弱，CL 和 6E 仍然没有明显的正向关系。
 更完整的结果见：
 
 - `reports/final_baseline_summary_zh.md`
+- `reports/detailed_results_zh.md`
 - `reports/tables/boundary_corrected_v1_regression_long.csv`
 - `reports/tables/boundary_corrected_v1_oos_all.csv`
 - `reports/tables/boundary_corrected_v1_strategy_all.csv`
