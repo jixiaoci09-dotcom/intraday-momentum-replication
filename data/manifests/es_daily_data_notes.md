@@ -3,7 +3,7 @@
 ## What This File Records
 
 This file records the ES daily research table built from local
-Databento `ES.v.0` `ohlcv-1m` downloads. The table follows the data cleaning rules in `docs/es_daily_table_rules.md`.
+Databento `ES.v.0` `ohlcv-1m` downloads. The table follows the data cleaning rules in `docs/daily_data_rules.md`.
 
 ## Local Output
 
