@@ -1,13 +1,17 @@
-# Intraday Momentum Replication Results
+# Intraday Momentum in CME Futures
 
-This project replicates the main futures-market intraday momentum result from Baltussen, Da, Lammers, and Martens, "Hedging Demand and Market Intraday Momentum." The sample covers six CME continuous futures contracts: ES, NQ, GC, CL, ZN, and 6E.
+A Partial Replication and Post-2020 Out-of-Sample Evaluation
+
+This project conducts a partial replication of the paper's core futures-market intraday momentum specifications from Baltussen, Da, Lammers, and Martens, "Hedging Demand and Market Intraday Momentum." The sample covers six CME continuous futures contracts: ES, NQ, GC, CL, ZN, and 6E.
+
+The project does not attempt to reproduce every market, historical period, mechanism analysis, or extension in the original paper. It focuses on the core regression specifications in this repository's data and on a 2021-2025 out-of-sample evaluation.
 
 The main question is whether the return over most of the trading day helps explain the return over the final half hour. To see whether the paper result also appears after the original sample period, I split the data into two parts:
 
-- Paper replication period: June 2010 to May 1, 2020
+- Paper-overlap period: June 2010 to May 1, 2020
 - Out-of-sample period: January 1, 2021 to December 31, 2025
 
-The period from May 2020 through the end of 2020 is left out of the main comparison so that the replication period and the later out-of-sample test stay clearly separated.
+The period from May 2020 through the end of 2020 is left out of the main comparison so that the paper-overlap period and the later out-of-sample test stay clearly separated.
 
 ## 1. Method
 
@@ -27,9 +31,9 @@ where:
 
 If `beta` is positive and statistically significant, then days with positive earlier returns tend to continue upward in the final half hour, and days with negative earlier returns tend to continue downward. This is the intraday momentum pattern studied in the paper.
 
-## 2. Paper Replication Period
+## 2. Paper-Overlap Period
 
-The table below reports Eq.(7) results for the six contracts during the paper replication period. `beta_x100` is the regression coefficient multiplied by 100 to make the numbers easier to read.
+The table below reports Eq.(7) results for the six contracts during the paper-overlap period defined in this project. `beta_x100` is the regression coefficient multiplied by 100 to make the numbers easier to read.
 
 | symbol | start      | end        | n    | beta_x100 | t      | p       |
 | ------ | ---------- | ---------- | ---- | --------- | ------ | ------- |
@@ -40,9 +44,9 @@ The table below reports Eq.(7) results for the six contracts during the paper re
 | ZN.v.0 | 2010-06-08 | 2020-05-01 | 2379 | 2.037     | 3.236  | 0.001   |
 | 6E.v.0 | 2010-06-08 | 2020-05-01 | 2398 | -0.129    | -0.278 | 0.781   |
 
-ES, NQ, GC, and ZN have positive and statistically significant coefficients in the replication period. This suggests that these contracts show a clear intraday momentum relation during the period that overlaps with the paper.
+During the paper-overlap period defined in this project, ES, NQ, GC, and ZN have positive Eq.(7) coefficients that are statistically significant at conventional nominal levels, whereas CL and 6E do not show a statistically significant positive relationship.
 
-CL and 6E are not significant at the single-contract level. I treat them as comparison contracts rather than simple replication failures. Different futures markets have different trading hours, liquidity, and market structure, so insignificant results for some individual contracts are not surprising.
+A non-significant result here only means that this project does not find a statistically significant positive relationship under the current data processing and sample definition. It does not prove that no related effect exists in those contracts.
 
 ## 3. 2021-2025 Out-of-Sample Results
 
@@ -57,18 +61,18 @@ I then test whether the same relationship appears in the later 2021-2025 sample.
 | ZN.v.0 | 2021-01-05 | 2025-12-31 | 1221 | 2.688     | 5.084  | p<0.001 |
 | 6E.v.0 | 2021-01-05 | 2025-12-31 | 1228 | 0.497     | 1.266  | 0.206   |
 
-The out-of-sample results are different from the replication-period results. In 2021-2025, only ZN continues to show a significant positive relationship. ES, NQ, and GC are significant in the replication period but weaken in the later sample. CL and 6E are not significantly positive in either period.
+The out-of-sample results are different from the paper-overlap results. In 2021-2025, only ZN continues to show a significant positive relationship. ES, NQ, and GC are significant in the paper-overlap period but weaken in the later sample. CL and 6E are not significantly positive in either period.
 
-This suggests that intraday momentum is not stable across all contracts and all time periods. In this sample, ZN is the most persistent result, while equity-index futures and gold show weaker out-of-sample performance.
+This suggests that intraday momentum does not appear consistently across all contracts and all time periods. In this sample, ZN has the clearest out-of-sample result, while equity-index futures and gold show weaker out-of-sample performance.
 
 ## 4. Out-of-Sample Prediction
 
 I also compare two simple out-of-sample prediction approaches:
 
-- Fixed training sample: estimate the model using only the paper replication period, then predict 2021-2025;
+- Fixed training sample: estimate the model using only the paper-overlap period, then predict 2021-2025;
 - Expanding training sample: re-estimate the model each prediction day using all data available up to that point.
 
-Based on OOS R2 and the directional forecast strategy, most contracts have weak out-of-sample explanatory power. ZN is the main exception: it has positive OOS R2 under both training approaches and stronger forecast-strategy performance than the other contracts.
+Based on OOS R2 and the directional forecast strategy, most contracts have weak out-of-sample explanatory power. ZN is the main exception: it has positive OOS R2 under both training approaches and better forecast-strategy performance than the other contracts.
 
 | symbol | training_method | n_test | r2_oos_x100 | forecast_strategy_sharpe |
 | ------ | --------------- | ------ | ----------- | ------------------------ |
@@ -98,7 +102,7 @@ The simple strategy is: go long during the final half hour when `r_ROD` is posit
 | oos         | 0                    | 1221     | 0.909               | 0.909             | 2.188  | 11.703                    |
 | oos         | 1                    | 1221     | 0.909               | -0.432            | -1.041 | -5.165                    |
 
-The result shows that even though the ZN statistical relationship is strong, transaction costs matter a lot. With a 1-tick round-trip cost, the average net return falls sharply and becomes negative. Therefore, I interpret this mainly as a statistical replication result, not as evidence that the strategy is directly tradable.
+The result shows that even though the ZN statistical relationship is clear in this sample, transaction costs matter a lot. With a 1-tick round-trip cost, the average net return falls sharply and becomes negative. Therefore, I interpret this mainly as a statistical out-of-sample observation, not as evidence that the strategy is directly tradable.
 
 ## 6. Data Processing Notes
 
@@ -116,11 +120,11 @@ These choices reduce the sample size, but they help avoid obvious inconsistencie
 
 The main findings are:
 
-- All six CME futures contracts are included in the single-contract replication.
-- During the paper replication period, ES, NQ, GC, and ZN have positive and significant Eq.(7) results.
-- CL and 6E are not significant at the single-contract level and are better interpreted as comparison contracts.
+- The project completes a partial replication of the core specifications for six CME futures contracts.
+- During the paper-overlap period, ES, NQ, GC, and ZN have positive Eq.(7) results that are significant at conventional nominal levels.
+- CL and 6E do not show a statistically significant positive relationship during the paper-overlap period used in this project.
 - In the 2021-2025 out-of-sample period, only ZN remains significantly positive.
-- Most contracts have weak out-of-sample prediction performance, so the intraday momentum relationship is not very stable.
+- Most contracts have weak out-of-sample prediction performance, so the intraday momentum relationship does not appear consistently across all contracts.
 - Even when the statistical relationship is significant, transaction costs can remove the apparent trading profitability.
 
-Overall, the intraday momentum pattern can be replicated for some futures contracts, but it is not equally stable across the later out-of-sample period.
+Overall, this project provides a partial replication of the core specifications for six CME futures contracts. In the paper-overlap period, the positive relationship is mainly found in ES, NQ, GC, and ZN, while the later out-of-sample results do not continue across all contracts.
