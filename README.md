@@ -89,6 +89,59 @@ The Git-tracked manifest is
 days, early closes, missing-boundary observations, and cross-instrument
 observations.
 
+## ES Core Replication
+
+The ES core replication now follows the paper's Table 2 Eq. (5), Eq. (6), and
+Eq. (7), plus the timing strategies based on Eq. (12):
+
+```text
+Eq. (5): r_LH,t = alpha + beta_ONFH * r_ONFH,t + epsilon_t
+Eq. (6): r_LH,t = alpha + beta_ONFH * r_ONFH,t
+                  + beta_M * r_M,t + beta_SLH * r_SLH,t + epsilon_t
+Eq. (7): r_LH,t = alpha + beta_ROD * r_ROD,t + epsilon_t
+Eq. (12): eta(r) = r_LH if r > 0, otherwise -r_LH
+```
+
+Outputs are stored in `reports/tables/`.
+
+Current ES-only gross results:
+
+- Eq. (5), replication window: `beta_ONFH * 100 = 4.63`,
+  Newey-West `t = 1.67`, `p = 0.096`. The sign is positive, but the
+  statistical evidence is weak and does not meet the common 5% threshold.
+- Eq. (6), replication window: `beta_ONFH * 100 = 4.31`, `beta_M * 100 = 2.69`,
+  and `beta_SLH * 100 = 13.98`; their Newey-West p-values are `0.090`,
+  `0.245`, and `0.093`, respectively.
+- Eq. (7), replication window: `beta_ROD * 100 = 4.22`,
+  Newey-West `t = 2.32`, `p = 0.020`, supporting the paper's core
+  `ROD -> LH` intraday closing momentum relation for ES in the overlapping
+  historical sample.
+- Eq. (7), OOS window: `beta_ROD * 100 = -0.58`,
+  Newey-West `t = -0.54`, `p = 0.591`. This does not establish a significant
+  reversal; it fails to reject a zero OOS predictive coefficient.
+- A pooled period-interaction test for Eq. (7) estimates
+  `beta_OOS - beta_replication = -4.80` percentage points with Newey-West
+  `t = -2.28`, `p = 0.023`. For ES alone, this supports describing the
+  post-2020 result as a statistically detectable attenuation of the historical
+  `ROD` coefficient.
+- Fixed-split OOS `R^2` values are negative for all three ES specifications:
+  Eq. (5) `-3.47%`, Eq. (6) `-2.78%`, and Eq. (7) `-3.79%`. The predictive
+  models trained on 2010-2020 do not beat the replication-sample mean
+  benchmark for 2021-2025.
+- The replication-window `r_ROD` timing strategy has annualized gross return
+  `3.71%` and Sharpe `0.82`; OOS gross return is `0.23%` with Sharpe `0.06`.
+- The `r_ONFH` timing strategy is weak for ES alone: replication Sharpe `0.10`
+  and OOS Sharpe `-0.87`.
+
+These are gross, single-symbol ES results before transaction costs and before
+buying the remaining target futures.
+
+ES-stage conclusion: We replicate a positive and statistically significant
+relation between rest-of-day and last-half-hour returns in ES futures during
+2010-2020. However, the coefficient declines significantly in 2021-2025, while
+the model produces a negative out-of-sample R^2, indicating no improvement over
+the historical-mean forecast.
+
 ## Data Policy
 
 Do not commit licensed Databento market data, API keys, billing information,

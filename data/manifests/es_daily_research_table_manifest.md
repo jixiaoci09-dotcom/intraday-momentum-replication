@@ -19,11 +19,11 @@ uploaded to GitHub.
 
 - Time zone: `America/New_York`
 - Effective ES window: `09:30-16:00`
-- Required current-day boundaries: `09:30`, `10:00`, `15:30`, `16:00`
+- Required current-day boundaries: `09:30`, `10:00`, `15:00`, `15:30`, `16:00`
 - Boundary price: one-minute bar `close`
 - Prior close: prior available `16:00` New York close
-- Baseline rule: prior close and current `10:00`, `15:30`, `16:00` prices must
-  all come from the same `instrument_id`
+- Baseline rule: prior close and current `10:00`, `15:00`, `15:30`, `16:00`
+  prices must all come from the same `instrument_id`
 
 ## Row Counts
 
@@ -52,11 +52,13 @@ Date range: `2010-06-07` to `2025-12-31`.
 | Variable | Count | Mean | Std | Min | Max |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | `r_ONFH` | 3,667 | 0.000280 | 0.007217 | -0.090664 | 0.064348 |
+| `r_M` | 3,667 | 0.000231 | 0.006352 | -0.041067 | 0.056985 |
+| `r_SLH` | 3,667 | 0.000018 | 0.002097 | -0.019671 | 0.027721 |
 | `r_ROD` | 3,667 | 0.000532 | 0.010066 | -0.093541 | 0.093463 |
 | `r_LH` | 3,667 | -0.000017 | 0.002751 | -0.026830 | 0.043781 |
 
-These are descriptive checks only. Regression and strategy results are not yet
-estimated.
+These are descriptive checks only. Regression and strategy results are stored
+separately in `reports/tables/`.
 
 ## Research Implications
 

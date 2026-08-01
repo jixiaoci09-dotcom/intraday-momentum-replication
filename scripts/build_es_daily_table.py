@@ -39,8 +39,8 @@ PACKAGES = [
 OUT_PARQUET = Path("data/processed/es_daily_research_table.parquet")
 OUT_SUMMARY = Path("data/manifests/es_daily_research_table_summary.json")
 
-BOUNDARY_CLOCKS = ["09:30", "10:00", "15:30", "16:00"]
-RESEARCH_CLOCKS = ["10:00", "15:30", "16:00"]
+BOUNDARY_CLOCKS = ["09:30", "10:00", "15:00", "15:30", "16:00"]
+RESEARCH_CLOCKS = ["10:00", "15:00", "15:30", "16:00"]
 
 
 def load_boundary_rows(package: dict[str, Any]) -> pd.DataFrame:
@@ -127,7 +127,7 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
     records: list[dict[str, Any]] = []
     date_rows: list[dict[str, Any]] = []
 
-    for trade_date, group in boundaries.groupby("trade_date", sort=True):
+    for (segment, trade_date), group in boundaries.groupby(["segment", "trade_date"], sort=True):
         clocks = set(group["ny_clock"])
         missing = [clock for clock in BOUNDARY_CLOCKS if clock not in clocks]
         ids_by_clock = {
@@ -135,8 +135,6 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
         }
         closes_by_clock = {clock: one_value(group, "close", clock) for clock in BOUNDARY_CLOCKS}
         ts_by_clock = {clock: one_value(group, "ts_event", clock) for clock in BOUNDARY_CLOCKS}
-        segment = group["segment"].iloc[-1]
-
         current_research_ids = [
             ids_by_clock[clock] for clock in RESEARCH_CLOCKS if ids_by_clock[clock] is not None
         ]
@@ -152,14 +150,17 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
                 "current_same_instrument": current_same_instrument,
                 "instrument_0930": ids_by_clock["09:30"],
                 "instrument_1000": ids_by_clock["10:00"],
+                "instrument_1500": ids_by_clock["15:00"],
                 "instrument_1530": ids_by_clock["15:30"],
                 "instrument_1600": ids_by_clock["16:00"],
                 "p_0930": closes_by_clock["09:30"],
                 "p_1000": closes_by_clock["10:00"],
+                "p_1500": closes_by_clock["15:00"],
                 "p_1530": closes_by_clock["15:30"],
                 "p_1600": closes_by_clock["16:00"],
                 "ts_0930": ts_by_clock["09:30"],
                 "ts_1000": ts_by_clock["10:00"],
+                "ts_1500": ts_by_clock["15:00"],
                 "ts_1530": ts_by_clock["15:30"],
                 "ts_1600": ts_by_clock["16:00"],
             }
@@ -175,9 +176,15 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
     boundary_table["current_same_instrument"] = boundary_table[
         "current_same_instrument"
     ].map(lambda value: bool(value) if pd.notna(value) else False)
-    for column in ["instrument_0930", "instrument_1000", "instrument_1530", "instrument_1600"]:
+    for column in [
+        "instrument_0930",
+        "instrument_1000",
+        "instrument_1500",
+        "instrument_1530",
+        "instrument_1600",
+    ]:
         boundary_table[column] = boundary_table[column].where(boundary_table[column].notna(), None)
-    for column in ["p_0930", "p_1000", "p_1530", "p_1600"]:
+    for column in ["p_0930", "p_1000", "p_1500", "p_1530", "p_1600"]:
         boundary_table[column] = boundary_table[column].where(boundary_table[column].notna(), None)
     boundary_table["nyse_is_trading_day"] = boundary_table["market_open"].notna()
     boundary_table["nyse_is_regular_close"] = boundary_table[
@@ -237,14 +244,17 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
             "prev_close_instrument_id": prev_instrument,
             "p_prev_close": p_prev_close,
             "p_open_plus_30": float(row.p_1000) if row.p_1000 is not None else None,
+            "p_close_minus_60": float(row.p_1500) if row.p_1500 is not None else None,
             "p_close_minus_30": float(row.p_1530) if row.p_1530 is not None else None,
             "p_close": float(row.p_1600) if row.p_1600 is not None else None,
             "ts_prev_close_utc": ts_prev_close,
             "ts_open_plus_30_utc": row.ts_1000,
+            "ts_close_minus_60_utc": row.ts_1500,
             "ts_close_minus_30_utc": row.ts_1530,
             "ts_close_utc": row.ts_1600,
             "has_0930": row.p_0930 is not None,
             "has_1000": row.p_1000 is not None,
+            "has_1500": row.p_1500 is not None,
             "has_1530": row.p_1530 is not None,
             "has_1600": row.p_1600 is not None,
             "current_same_instrument": bool(row.current_same_instrument),
@@ -256,10 +266,14 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
 
         if include:
             record["r_ONFH"] = record["p_open_plus_30"] / record["p_prev_close"] - 1
+            record["r_M"] = record["p_close_minus_60"] / record["p_open_plus_30"] - 1
+            record["r_SLH"] = record["p_close_minus_30"] / record["p_close_minus_60"] - 1
             record["r_ROD"] = record["p_close_minus_30"] / record["p_prev_close"] - 1
             record["r_LH"] = record["p_close"] / record["p_close_minus_30"] - 1
         else:
             record["r_ONFH"] = None
+            record["r_M"] = None
+            record["r_SLH"] = None
             record["r_ROD"] = None
             record["r_LH"] = None
 
@@ -297,7 +311,7 @@ def build_daily(boundaries: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]
     }
 
     included = daily[daily["include"]]
-    for column in ["r_ONFH", "r_ROD", "r_LH"]:
+    for column in ["r_ONFH", "r_M", "r_SLH", "r_ROD", "r_LH"]:
         summary["return_summary_included"][column] = {
             "count": int(included[column].count()),
             "mean": float(included[column].mean()),
